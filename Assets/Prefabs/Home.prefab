@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3835792057229146687}
   - component: {fileID: 3834471106146774356}
   - component: {fileID: 8221662967015367784}
+  - component: {fileID: 3453027329550878813}
   m_Layer: 0
   m_Name: Pawn (3)
   m_TagString: Untagged
@@ -95,6 +96,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1355b9d3f61c414ebcfeb8736c71cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnColor: 
+  pawnId: 0
+--- !u!58 &3453027329550878813
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163685033089155325}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0.0000009536743}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2213354653728183471
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +125,7 @@ GameObject:
   - component: {fileID: 1464837691454421901}
   - component: {fileID: 2989903637611279464}
   - component: {fileID: 1579603161422394449}
+  - component: {fileID: 5759535963163681710}
   m_Layer: 0
   m_Name: Pawn
   m_TagString: Untagged
@@ -190,6 +210,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1355b9d3f61c414ebcfeb8736c71cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnColor: 
+  pawnId: 0
+--- !u!58 &5759535963163681710
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213354653728183471}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0.00000047683716}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4150182825060526253
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +273,7 @@ GameObject:
   - component: {fileID: 2220493859022851792}
   - component: {fileID: 2454859891432917372}
   - component: {fileID: 5150768079968065541}
+  - component: {fileID: 7299555889940094076}
   m_Layer: 0
   m_Name: Pawn (2)
   m_TagString: Untagged
@@ -319,6 +358,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1355b9d3f61c414ebcfeb8736c71cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnColor: 
+  pawnId: 0
+--- !u!58 &7299555889940094076
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026854618201970886}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.0000009536743}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &6712135505913000340
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +387,7 @@ GameObject:
   - component: {fileID: 8733045044118908360}
   - component: {fileID: 4694220425954657978}
   - component: {fileID: 8289977419912153864}
+  - component: {fileID: 6037120989368379073}
   m_Layer: 0
   m_Name: Pawn (1)
   m_TagString: Untagged
@@ -414,3 +472,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1355b9d3f61c414ebcfeb8736c71cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnColor: 
+  pawnId: 0
+--- !u!58 &6037120989368379073
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6712135505913000340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.00000047683716}
+  serializedVersion: 2
+  m_Radius: 0.5

@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Square : MonoBehaviour
 {
+    public Vector3 _position;
+    public string label = "";
+    
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Start() {
+        _position = transform.position;
     }
 }
