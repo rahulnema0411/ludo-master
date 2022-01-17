@@ -6,9 +6,10 @@ using Zenject;
 
 public class Pawn : MonoBehaviour {
 
-
+    public CircleCollider2D boxCollider;
     public string pawnColor;
     public int pawnId;
+    public int currentPosition;
 
     private SignalBus _signalBus;
 
@@ -28,23 +29,18 @@ public class Pawn : MonoBehaviour {
     public void InitPawnValues(string pawnColor, int pawnId) {
         this.pawnColor = pawnColor;
         this.pawnId = pawnId;
+        this.currentPosition = -1;
     }
 
     private void Move(MovePawnSignal signal) {
         if (signal.pawnId == pawnId && signal.pawnColor == pawnColor) {
             transform.position = signal.toPosition;
+            currentPosition = signal.newPosition;
         }
     }
 
     void Update() {
         DetectHit();
-    }
-
-    private IEnumerator MovePawn(float time, Vector3 finalPosition) {
-        while (transform.position == new Vector3(2f, 2f, 2f)) {
-            yield return new WaitForSeconds(time);
-            Vector3.MoveTowards(transform.position, finalPosition, time);
-        }
     }
 
     private void DetectHit() {
@@ -57,5 +53,13 @@ public class Pawn : MonoBehaviour {
                 }
             }
         }        
+    }
+
+    private void DisableHit() {
+        boxCollider.enabled = false;
+    }
+
+    private void EnableHit() {
+        boxCollider.enabled = true;
     }
 }

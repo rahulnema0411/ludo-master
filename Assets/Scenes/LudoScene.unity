@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e217ecfb7f2301b4f9c08be9d20d519e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ludoBoard: {fileID: 1802973526}
 --- !u!114 &1407005315
 MonoBehaviour:
   m_ObjectHideFlags: 0

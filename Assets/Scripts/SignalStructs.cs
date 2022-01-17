@@ -6,11 +6,13 @@ public struct MovePawnSignal {
     public Vector3 toPosition;
     public int pawnId;
     public string pawnColor;
+    public int newPosition;
 
-    public MovePawnSignal(Vector3 toPosition, int pawnId, string pawnColor) {
+    public MovePawnSignal(Vector3 toPosition, int pawnId, string pawnColor, int newPosition) {
         this.toPosition = toPosition;
         this.pawnId = pawnId;
         this.pawnColor = pawnColor;
+        this.newPosition = newPosition;
     }
 }
 
@@ -21,5 +23,15 @@ public struct SelectedPawnSignal {
     public SelectedPawnSignal(int id, string color) {
         this.id = id;
         this.color = color;
+    }
+}
+
+public struct DiceResultSignal {
+    public string color;
+    public int roll;
+
+    public DiceResultSignal(string color, int roll) {
+        this.color = color;
+        this.roll = roll;
     }
 }
