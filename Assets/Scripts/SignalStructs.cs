@@ -35,3 +35,19 @@ public struct DiceResultSignal {
         this.roll = roll;
     }
 }
+
+public struct PlayerTurnSignal {
+    public string color;
+
+    public PlayerTurnSignal(string color) {
+        this.color = color;
+    }
+}
+
+public struct TurnEndSignal {
+    public string color;
+
+    public TurnEndSignal(string color) {
+        this.color = color;
+    }
+}

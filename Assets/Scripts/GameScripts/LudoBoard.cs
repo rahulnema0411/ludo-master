@@ -11,6 +11,10 @@ public class LudoBoard : MonoBehaviour {
 
     public Player[] players;
 
+    public string[] TurnOrder;
+
+    private int turnIndex;
+
     private SignalBus _signalBus;
 
     [Inject]
@@ -21,6 +25,38 @@ public class LudoBoard : MonoBehaviour {
     public void InitializeBoard() {
         InitializeMainPath();
         InitializePlayers();
+        SubscribeToSignals();
+        ActivatePlayers();
+        turnIndex = 0;
+    }
+
+    private void ActivatePlayers() {
+        TurnOrder = new string[4];
+        TurnOrder[0] = "red";
+        TurnOrder[1] = "green";
+        TurnOrder[2] = "yellow";
+        TurnOrder[3] = "blue";
+    }
+
+    private void SubscribeToSignals() {
+        _signalBus.Subscribe<TurnEndSignal>(NextTurn);
+    }
+
+    private void NextTurn(TurnEndSignal signal) {
+        int lastTurn = Array.IndexOf(TurnOrder, signal.color.ToLower());
+        int nextTurn = 0;
+        if(!(lastTurn == TurnOrder.Length - 1)) {
+            nextTurn = lastTurn + 1;
+        }
+        _signalBus.Fire(new PlayerTurnSignal {
+            color = TurnOrder[nextTurn]
+        });
+    }
+
+    public void Play() {
+        _signalBus.Fire(new PlayerTurnSignal { 
+            color = TurnOrder[turnIndex]
+        });
     }
 
     private void InitializePlayers() {

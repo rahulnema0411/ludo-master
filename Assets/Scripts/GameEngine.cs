@@ -9,5 +9,6 @@ public class GameEngine : MonoBehaviour {
 
     private void Start() {
         ludoBoard.InitializeBoard();
+        ludoBoard.Play();
     }
 }

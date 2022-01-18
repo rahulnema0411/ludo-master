@@ -18,6 +18,8 @@ public class GameInstaller : MonoInstaller {
         Container.DeclareSignal<MovePawnSignal>();
         Container.DeclareSignal<SelectedPawnSignal>();
         Container.DeclareSignal<DiceResultSignal>();
+        Container.DeclareSignal<PlayerTurnSignal>();
+        Container.DeclareSignal<TurnEndSignal>();
     }
 
     private void BindIntances() {

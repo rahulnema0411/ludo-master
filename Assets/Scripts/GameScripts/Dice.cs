@@ -17,6 +17,22 @@ public class Dice : MonoBehaviour {
         _signalBus = signalBus;
     }
 
+    private void Start() {
+        SubscribeToSignals();
+    }
+
+    private void SubscribeToSignals() {
+        _signalBus.Subscribe<PlayerTurnSignal>(ShowOrHideDice);
+    }
+
+    private void ShowOrHideDice(PlayerTurnSignal signal) {
+        if(signal.color.ToLower().Equals(diceID.ToLower())) {
+            gameObject.SetActive(true);
+        } else {
+            gameObject.SetActive(false);
+        }
+    }
+
     void Update() {
         DetectHit();
     }

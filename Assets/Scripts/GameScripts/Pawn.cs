@@ -24,6 +24,8 @@ public class Pawn : MonoBehaviour {
 
     private void SubcribeToSignals() {
         _signalBus.Subscribe<MovePawnSignal>(Move);
+        _signalBus.Subscribe<PlayerTurnSignal>(DisableHit);
+        _signalBus.Subscribe<DiceResultSignal>(EnableHitForRespectivePawn);
     }
 
     public void InitPawnValues(string pawnColor, int pawnId) {
@@ -36,6 +38,9 @@ public class Pawn : MonoBehaviour {
         if (signal.pawnId == pawnId && signal.pawnColor == pawnColor) {
             transform.position = signal.toPosition;
             currentPosition = signal.newPosition;
+            _signalBus.Fire(new TurnEndSignal { 
+                color = pawnColor
+            });
         }
     }
 
@@ -59,7 +64,11 @@ public class Pawn : MonoBehaviour {
         boxCollider.enabled = false;
     }
 
-    private void EnableHit() {
-        boxCollider.enabled = true;
+    private void EnableHitForRespectivePawn(DiceResultSignal signal) {
+        if(signal.color.ToLower().Equals(pawnColor.ToLower())) {
+            boxCollider.enabled = true;
+        } else {
+            boxCollider.enabled = false;
+        }
     }
 }
