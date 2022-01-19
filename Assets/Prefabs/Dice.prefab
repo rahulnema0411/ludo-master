@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c072cf18bcc555e4f98028b79d3c15f4, type: 3}
   - {fileID: 21300000, guid: c54844ed6ade6c3469e61221761e12c9, type: 3}
   dice: {fileID: 1654249108005205386}
+  diceCollider: {fileID: 6713651368192380078}
   diceID: 
 --- !u!212 &1654249108005205386
 SpriteRenderer:
