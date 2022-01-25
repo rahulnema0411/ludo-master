@@ -203,7 +203,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.19215688, g: 0.4745098, b: 0.46600738, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -389,41 +389,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1783658652517280281, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.471
-      objectReference: {fileID: 0}
     - target: {fileID: 1875132258389762431, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
       propertyPath: m_Name
       value: LudoBoard
-      objectReference: {fileID: 0}
-    - target: {fileID: 2709060848574338922, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.571
-      objectReference: {fileID: 0}
-    - target: {fileID: 2709060848574338922, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 3448919293748142094, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242579992146622623, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.477
-      objectReference: {fileID: 0}
-    - target: {fileID: 4242579992146622623, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.798
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885801695903352748, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.543
-      objectReference: {fileID: 0}
-    - target: {fileID: 6885801695903352748, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.792
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f833e5f559b61545b296158d5dda314, type: 3}
