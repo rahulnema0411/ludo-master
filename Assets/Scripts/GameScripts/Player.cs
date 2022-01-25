@@ -6,7 +6,7 @@ using Zenject;
 
 public class Player : MonoBehaviour {
     [SerializeField] public List<Square> path;
-    [SerializeField] public Transform RedFinalPath;
+    [SerializeField] public Transform FinalPath;
     [SerializeField] public Pawn[] pawns;
     [SerializeField] public Dice dice;
     [SerializeField] public string color;
@@ -93,6 +93,9 @@ public class Player : MonoBehaviour {
         }
         for (int i = 0; i <= endIndex; i++) {
             path.Add(_ludoBoard.MainPathway[i]);
+        }
+        for(int i = 0;i < FinalPath.childCount; i++) {
+            path.Add(FinalPath.GetChild(i).GetComponent<Square>());
         }
     }
 
