@@ -59,6 +59,7 @@ public class Dice : MonoBehaviour {
         }
         int roll = Random.Range(0, 6);
         dice.sprite = diceFaces[roll];
+        yield return new WaitForSeconds(1f);
         _signalBus.Fire(new DiceResultSignal {
             roll = roll + 1,
             color = diceID

@@ -10,6 +10,7 @@ public class Pawn : MonoBehaviour {
     public string pawnColor;
     public int pawnId;
     public int currentPosition;
+    public GameObject turnHighlighter;
 
     private SignalBus _signalBus;
 
@@ -42,6 +43,7 @@ public class Pawn : MonoBehaviour {
                 color = pawnColor
             });
         }
+        turnHighlighter.SetActive(false);
     }
 
     void Update() {
@@ -61,12 +63,21 @@ public class Pawn : MonoBehaviour {
     }
 
     private void DisableHit() {
+        turnHighlighter.SetActive(false);
         boxCollider.enabled = false;
     }
 
     private void EnableHitForRespectivePawn(DiceResultSignal signal) {
         if(signal.color.ToLower().Equals(pawnColor.ToLower())) {
-            boxCollider.enabled = true;
+            if(signal.roll == 6) {
+                turnHighlighter.SetActive(true);
+                boxCollider.enabled = true;
+            } else { 
+                if(currentPosition != -1) {
+                    turnHighlighter.SetActive(true);
+                    boxCollider.enabled = true;
+                }
+            }
         } else {
             boxCollider.enabled = false;
         }

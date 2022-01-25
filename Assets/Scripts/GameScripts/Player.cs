@@ -38,14 +38,30 @@ public class Player : MonoBehaviour {
 
     private void StoreDiceResult(DiceResultSignal signal) {
         if(signal.color.Equals(color)) {
-            roll = signal.roll;
-        }
+            if (isEveryPawnHome()) {
+                if(signal.roll == 6) {
+                    roll = signal.roll;
+                } else {
+                    _signalBus.Fire(new TurnEndSignal {
+                        color = color
+                    });
+                }
+            } else {
+                roll = signal.roll;
+            }
+        }   
     }
 
     private void MovePawn(SelectedPawnSignal signal) {
         if (signal.color.Equals(color)) {
             int currentPosition = pawns[signal.id].currentPosition;
-            int newPosition = currentPosition + roll;
+
+            int newPosition;
+            if (currentPosition == -1) {
+                newPosition = 0;
+            } else {
+                newPosition = currentPosition + roll;
+            }
             Vector3 newVectorPosition = path[newPosition].position;
 
             _signalBus.Fire(
@@ -77,5 +93,14 @@ public class Player : MonoBehaviour {
         for (int i = 0; i <= endIndex; i++) {
             path.Add(_ludoBoard.MainPathway[i]);
         }
+    }
+
+    private bool isEveryPawnHome() {
+        foreach (Pawn pawn in pawns) {
+            if(pawn.currentPosition != -1) {
+                return false;
+            }
+        }
+        return true;
     }
 }
