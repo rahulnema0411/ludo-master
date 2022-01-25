@@ -7,12 +7,14 @@ public struct MovePawnSignal {
     public int pawnId;
     public string pawnColor;
     public int newPosition;
+    public int rollCount;
 
-    public MovePawnSignal(Vector3 toPosition, int pawnId, string pawnColor, int newPosition) {
+    public MovePawnSignal(Vector3 toPosition, int pawnId, string pawnColor, int newPosition, int rollCount) {
         this.toPosition = toPosition;
         this.pawnId = pawnId;
         this.pawnColor = pawnColor;
         this.newPosition = newPosition;
+        this.rollCount = rollCount;
     }
 }
 
@@ -46,8 +48,10 @@ public struct PlayerTurnSignal {
 
 public struct TurnEndSignal {
     public string color;
+    public int previousTurnRoll;
 
-    public TurnEndSignal(string color) {
+    public TurnEndSignal(string color, int previousTurnRoll) {
         this.color = color;
+        this.previousTurnRoll = previousTurnRoll;
     }
 }

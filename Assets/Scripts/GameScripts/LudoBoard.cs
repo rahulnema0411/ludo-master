@@ -43,10 +43,14 @@ public class LudoBoard : MonoBehaviour {
     }
 
     private void NextTurn(TurnEndSignal signal) {
-        int lastTurn = Array.IndexOf(TurnOrder, signal.color.ToLower());
         int nextTurn = 0;
-        if(!(lastTurn == TurnOrder.Length - 1)) {
-            nextTurn = lastTurn + 1;
+        int lastTurn = Array.IndexOf(TurnOrder, signal.color.ToLower());
+        if(signal.previousTurnRoll != 6) {
+            if(!(lastTurn == TurnOrder.Length - 1)) {
+                nextTurn = lastTurn + 1;
+            }
+        } else {
+            nextTurn = lastTurn;
         }
         _signalBus.Fire(new PlayerTurnSignal {
             color = TurnOrder[nextTurn]

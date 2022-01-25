@@ -40,7 +40,8 @@ public class Pawn : MonoBehaviour {
             transform.position = signal.toPosition;
             currentPosition = signal.newPosition;
             _signalBus.Fire(new TurnEndSignal { 
-                color = pawnColor
+                color = pawnColor,
+                previousTurnRoll = signal.rollCount
             });
         }
         turnHighlighter.SetActive(false);

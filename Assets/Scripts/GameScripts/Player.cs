@@ -69,7 +69,8 @@ public class Player : MonoBehaviour {
                     toPosition: newVectorPosition,
                     pawnId: signal.id,
                     pawnColor: signal.color,
-                    newPosition: newPosition
+                    newPosition: newPosition,
+                    rollCount: roll
                 )
             );
             roll = 0;
