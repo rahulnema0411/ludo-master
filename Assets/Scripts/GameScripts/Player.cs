@@ -55,7 +55,6 @@ public class Player : MonoBehaviour {
     private void MovePawn(SelectedPawnSignal signal) {
         if (signal.color.Equals(color)) {
             int currentPosition = pawns[signal.id].currentPosition;
-
             int newPosition;
             if (currentPosition == -1) {
                 newPosition = 0;
@@ -67,10 +66,10 @@ public class Player : MonoBehaviour {
             _signalBus.Fire(
                 new MovePawnSignal(
                     toPosition: newVectorPosition,
-                    pawnId: signal.id,
-                    pawnColor: signal.color,
                     newPosition: newPosition,
-                    rollCount: roll
+                    rollCount: roll,
+                    square: path[newPosition],
+                    pawn: pawns[signal.id]
                 )
             );
             roll = 0;

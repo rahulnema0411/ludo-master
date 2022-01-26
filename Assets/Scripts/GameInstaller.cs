@@ -20,6 +20,7 @@ public class GameInstaller : MonoInstaller {
         Container.DeclareSignal<DiceResultSignal>();
         Container.DeclareSignal<PlayerTurnSignal>();
         Container.DeclareSignal<TurnEndSignal>();
+        Container.DeclareSignal<KillPawnSignal>();
     }
 
     private void BindIntances() {

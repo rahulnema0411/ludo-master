@@ -4,17 +4,17 @@ using UnityEngine;
 
 public struct MovePawnSignal {
     public Vector3 toPosition;
-    public int pawnId;
-    public string pawnColor;
     public int newPosition;
     public int rollCount;
+    public Square square;
+    public Pawn pawn;
 
-    public MovePawnSignal(Vector3 toPosition, int pawnId, string pawnColor, int newPosition, int rollCount) {
+    public MovePawnSignal(Vector3 toPosition, int newPosition, int rollCount, Square square, Pawn pawn) {
         this.toPosition = toPosition;
-        this.pawnId = pawnId;
-        this.pawnColor = pawnColor;
         this.newPosition = newPosition;
         this.rollCount = rollCount;
+        this.pawn = pawn;
+        this.square = square;
     }
 }
 
@@ -47,11 +47,23 @@ public struct PlayerTurnSignal {
 }
 
 public struct TurnEndSignal {
-    public string color;
+    public Pawn pawn;
     public int previousTurnRoll;
+    public string color;
+    public Square square;
 
-    public TurnEndSignal(string color, int previousTurnRoll) {
-        this.color = color;
+    public TurnEndSignal(Pawn pawn, int previousTurnRoll, string color, Square square) {
+        this.pawn = pawn;
         this.previousTurnRoll = previousTurnRoll;
+        this.color = color;
+        this.square = square;
+    }
+}
+
+public struct KillPawnSignal {
+    public Pawn pawn;
+
+    public KillPawnSignal(Pawn pawn) {
+        this.pawn = pawn;
     }
 }

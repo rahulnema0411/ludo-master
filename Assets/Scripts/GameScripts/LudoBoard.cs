@@ -71,7 +71,9 @@ public class LudoBoard : MonoBehaviour {
 
     private void InitializeMainPath() {
         for (int i = 0; i < MainPath.childCount; i++) {
-            MainPathway.Add(MainPath.GetChild(i).GetComponent<Square>());
+            Square square = MainPath.GetChild(i).GetComponent<Square>();
+            square.SetID(i);
+            MainPathway.Add(square);
         }
     }
 }

@@ -11,6 +11,8 @@ public class Pawn : MonoBehaviour {
     public int pawnId;
     public int currentPosition;
     public GameObject turnHighlighter;
+    
+    private Vector3 pawnStartingPosition;
 
     private SignalBus _signalBus;
 
@@ -21,12 +23,14 @@ public class Pawn : MonoBehaviour {
 
     private void Awake() {
         SubcribeToSignals();
+        pawnStartingPosition = transform.position;
     }
 
     private void SubcribeToSignals() {
         _signalBus.Subscribe<MovePawnSignal>(Move);
         _signalBus.Subscribe<PlayerTurnSignal>(DisableHit);
         _signalBus.Subscribe<DiceResultSignal>(EnableHitForRespectivePawn);
+        _signalBus.Subscribe<KillPawnSignal>(MoveHome);
     }
 
     public void InitPawnValues(string pawnColor, int pawnId) {
@@ -36,15 +40,24 @@ public class Pawn : MonoBehaviour {
     }
 
     private void Move(MovePawnSignal signal) {
-        if (signal.pawnId == pawnId && signal.pawnColor == pawnColor) {
+        if (signal.pawn.pawnId == pawnId && signal.pawn.pawnColor == pawnColor) {
             transform.position = signal.toPosition;
             currentPosition = signal.newPosition;
             _signalBus.Fire(new TurnEndSignal { 
-                color = pawnColor,
-                previousTurnRoll = signal.rollCount
+                pawn = this,
+                previousTurnRoll = signal.rollCount,
+                color = pawnColor, 
+                square = signal.square
             });
         }
         turnHighlighter.SetActive(false);
+    }
+
+    private void MoveHome(KillPawnSignal signalData) {
+        if(signalData.pawn.pawnColor == pawnColor && signalData.pawn.pawnId == pawnId) {
+            transform.position = pawnStartingPosition;
+            currentPosition = -1;
+        }
     }
 
     void Update() {
