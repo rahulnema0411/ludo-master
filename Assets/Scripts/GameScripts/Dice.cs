@@ -53,7 +53,8 @@ public class Dice : MonoBehaviour {
     }
 
     private IEnumerator RollDice() {
-        for(int i = 0;i < 10;i++) {
+        diceCollider.enabled = false;
+        for (int i = 0;i < 10;i++) {
             dice.sprite = diceFaces[Random.Range(0, 6)];
             yield return new WaitForSeconds(0.1f);
         }
@@ -64,6 +65,5 @@ public class Dice : MonoBehaviour {
             roll = roll + 1,
             color = diceID
         });
-        diceCollider.enabled = false;
     }
 }

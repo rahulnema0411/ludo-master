@@ -61,7 +61,8 @@ public class Player : MonoBehaviour {
             } else {
                 newPosition = currentPosition + roll;
             }
-            Vector3 newVectorPosition = path[newPosition].position;
+            Vector3 newVectorPosition =  new Vector3();
+            newVectorPosition = path[newPosition].position;
 
             _signalBus.Fire(
                 new MovePawnSignal(
