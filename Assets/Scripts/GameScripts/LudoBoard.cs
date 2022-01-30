@@ -11,32 +11,34 @@ public class LudoBoard : MonoBehaviour {
 
     public Player[] players;
 
-    public string[] TurnOrder;
+    //public string[] TurnOrder;
 
     private int turnIndex;
 
     private SignalBus _signalBus;
+    private GameManager _gameManager;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, GameManager gameManager) {
         _signalBus = signalBus;
+        _gameManager = gameManager;
     }
 
     public void InitializeBoard() {
         InitializeMainPath();
         InitializePlayers();
         SubscribeToSignals();
-        ActivatePlayers();
+        //ActivatePlayers();
         turnIndex = 0;
     }
 
-    private void ActivatePlayers() {
+    /*private void ActivatePlayers() {
         TurnOrder = new string[4];
         TurnOrder[0] = "red";
         TurnOrder[1] = "green";
         TurnOrder[2] = "yellow";
         TurnOrder[3] = "blue";
-    }
+    }*/
 
     private void SubscribeToSignals() {
         _signalBus.Subscribe<TurnEndSignal>(NextTurn);
@@ -44,22 +46,22 @@ public class LudoBoard : MonoBehaviour {
 
     private void NextTurn(TurnEndSignal signal) {
         int nextTurn = 0;
-        int lastTurn = Array.IndexOf(TurnOrder, signal.color.ToLower());
+        int lastTurn = Array.IndexOf(_gameManager.TurnOrder, signal.color.ToLower());
         if(signal.previousTurnRoll != 6) {
-            if(!(lastTurn == TurnOrder.Length - 1)) {
+            if(!(lastTurn == _gameManager.TurnOrder.Length - 1)) {
                 nextTurn = lastTurn + 1;
             }
         } else {
             nextTurn = lastTurn;
         }
         _signalBus.Fire(new PlayerTurnSignal {
-            color = TurnOrder[nextTurn]
+            color = _gameManager.TurnOrder[nextTurn]
         });
     }
 
     public void Play() {
         _signalBus.Fire(new PlayerTurnSignal { 
-            color = TurnOrder[turnIndex]
+            color = _gameManager.TurnOrder[turnIndex]
         });
     }
 
