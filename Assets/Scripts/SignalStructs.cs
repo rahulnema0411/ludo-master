@@ -67,3 +67,7 @@ public struct KillPawnSignal {
         this.pawn = pawn;
     }
 }
+
+public struct LobbyJoinSignal {
+
+}

@@ -5,60 +5,61 @@ using Zenject;
 
 public class Menu : MonoBehaviour {
 
-    public Button TwoPlayerPlay, ThreePlayerPlay, FourPlayerPlay;
+    public OfflineMenuController offlineMenuController;
+    public OnlineMenuController onlineMenuController;
+    public Transform playModeSelect;
+    public Button offlinePlayButton, onlinePlayButton, backButton;
 
-    private GameManager _gameManager;
+    private ConnectToServer _server;
+    private SignalBus _signalBus;
 
     [Inject]
-    public void Construct(GameManager gameManager) {
-        _gameManager = gameManager;
+    public void Construct(ConnectToServer server, SignalBus signalBus) {
+        _server = server;
+        _signalBus = signalBus;
+    }
+
+    private void SubsribeToSignals() {
+        _signalBus.Subscribe<LobbyJoinSignal>(OpenLobby);
     }
 
     private void Start() {
+        SubsribeToSignals();
         SetButtons();
+        ClearMenu();
+        playModeSelect.gameObject.SetActive(true);
     }
 
     private void SetButtons() {
-        TwoPlayerPlay.onClick.RemoveAllListeners();
-        TwoPlayerPlay.onClick.AddListener(delegate() {
-            StartTwoPlayerGame();
-        });
 
-        ThreePlayerPlay.onClick.RemoveAllListeners();
-        ThreePlayerPlay.onClick.AddListener(delegate() {
-            StartThreePlayerGame();
+        offlinePlayButton.onClick.RemoveAllListeners();
+        offlinePlayButton.onClick.AddListener(delegate() {
+            ClearMenu();
+            offlineMenuController.gameObject.SetActive(true);
         });
         
-        FourPlayerPlay.onClick.RemoveAllListeners();
-        FourPlayerPlay.onClick.AddListener(delegate() {
-            StartFourPlayerGame();
+        onlinePlayButton.onClick.RemoveAllListeners();
+        onlinePlayButton.onClick.AddListener(delegate() {
+            ClearMenu();
+            _server.JoinLobby();
+        });
+
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(delegate() {
+            ClearMenu();
+            playModeSelect.gameObject.SetActive(true);
         });
     }
 
-    private void StartTwoPlayerGame() {
-        string[] turnOrder = new string[2];
-        turnOrder[0] = "red";
-        turnOrder[1] = "green";
-        _gameManager.TurnOrder = turnOrder;
-        _gameManager.LoadGameScene();
+    private void OpenLobby() {
+        onlineMenuController.gameObject.SetActive(true);
     }
 
-    private void StartThreePlayerGame() {
-        string[] turnOrder = new string[3];
-        turnOrder[0] = "red";
-        turnOrder[1] = "green";
-        turnOrder[2] = "yellow";
-        _gameManager.TurnOrder = turnOrder;
-        _gameManager.LoadGameScene();
+    private void ClearMenu() {
+        offlineMenuController.gameObject.SetActive(false);
+        onlineMenuController.gameObject.SetActive(false);
+        playModeSelect.gameObject.SetActive(false);
     }
 
-    private void StartFourPlayerGame() {
-        string[] turnOrder = new string[4];
-        turnOrder[0] = "red";
-        turnOrder[1] = "green";
-        turnOrder[2] = "yellow";
-        turnOrder[3] = "blue";
-        _gameManager.TurnOrder = turnOrder;
-        _gameManager.LoadGameScene();
-    }
+
 }

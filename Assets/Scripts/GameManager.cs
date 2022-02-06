@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance;
 
     public string[] TurnOrder;
 
-    private void Awake() {
-        DontDestroyOnLoad(this);
+    void Awake() {
+        MakeThisTheOnlyGameManager();
     }
 
-    public void LoadGameScene() {
-        SceneManager.LoadScene("LudoScene");
-    }
 
+    void MakeThisTheOnlyGameManager() {
+        if (instance == null) {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        } else {
+            if (instance != this) {
+                Destroy(gameObject);
+            }
+        }
+    }
 }
