@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Zenject;
+using Photon.Realtime;
 
 public class OnlineMenuController : MonoBehaviour {
 
@@ -29,7 +30,10 @@ public class OnlineMenuController : MonoBehaviour {
         createLobbyButton.onClick.AddListener(delegate() { 
             if(!string.IsNullOrWhiteSpace(createLobbyInput.text)) {
                 Debug.LogError("Creating room: " + createLobbyInput.text);
-                _server.CreateRoom(createLobbyInput.text);
+                SetTurnOrder();
+                RoomOptions roomOptions = new RoomOptions();
+                roomOptions.MaxPlayers = 2;
+                _server.CreateRoom(createLobbyInput.text, roomOptions);
             } else {
                 Debug.LogError("Empty string");
             }
@@ -38,11 +42,19 @@ public class OnlineMenuController : MonoBehaviour {
         joinLobbyButton.onClick.RemoveAllListeners();
         joinLobbyButton.onClick.AddListener(delegate() { 
             if(!string.IsNullOrWhiteSpace(joinLobbyInput.text)) {
-                Debug.LogError("Joining room: " + createLobbyInput.text);
-                _server.JoinRoom(createLobbyInput.text);
+                Debug.LogError("Joining room: " + joinLobbyInput.text);
+                SetTurnOrder();
+                _server.JoinRoom(joinLobbyInput.text);
             } else {
                 Debug.LogError("Empty string");
             }
         });
+    }
+
+    private static void SetTurnOrder() {
+        string[] TurnOrder = new string[2];
+        TurnOrder[0] = "red";
+        TurnOrder[1] = "yellow";
+        GameManager.instance.TurnOrder = TurnOrder;
     }
 }

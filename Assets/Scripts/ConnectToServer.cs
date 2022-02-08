@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Zenject;
+using Photon.Realtime;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks {
 
@@ -30,8 +31,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
         _signalBus.Fire(new LobbyJoinSignal { });
     }
 
-    public void CreateRoom(string roomName) {
-        PhotonNetwork.CreateRoom(roomName);
+    public void CreateRoom(string roomName, RoomOptions roomOptions) {
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
     public void JoinRoom(string roomName) {

@@ -33,12 +33,6 @@ public class LudoBoard : MonoBehaviour {
     private void ActivatePlayers() {
         if(GameManager.instance.TurnOrder != null) {
             TurnOrder = GameManager.instance.TurnOrder;
-        } else {
-            TurnOrder = new string[4];
-            TurnOrder[0] = "red";
-            TurnOrder[1] = "green";
-            TurnOrder[2] = "yellow";
-            TurnOrder[3] = "blue";
         }
     }
 
