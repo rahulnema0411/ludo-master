@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - YellowPawn0
+  - YellowPawn1
+  - YellowPawn3
+  - YellowPawn2
   layers:
   - Default
   - TransparentFX
