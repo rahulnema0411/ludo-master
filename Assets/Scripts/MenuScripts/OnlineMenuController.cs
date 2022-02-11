@@ -31,6 +31,7 @@ public class OnlineMenuController : MonoBehaviour {
             if(!string.IsNullOrWhiteSpace(createLobbyInput.text)) {
                 Debug.LogError("Creating room: " + createLobbyInput.text);
                 SetTurnOrder();
+                GameManager.instance.isMultiplayer = true;
                 RoomOptions roomOptions = new RoomOptions();
                 roomOptions.MaxPlayers = 2;
                 _server.CreateRoom(createLobbyInput.text, roomOptions);
@@ -43,6 +44,7 @@ public class OnlineMenuController : MonoBehaviour {
         joinLobbyButton.onClick.AddListener(delegate() { 
             if(!string.IsNullOrWhiteSpace(joinLobbyInput.text)) {
                 Debug.LogError("Joining room: " + joinLobbyInput.text);
+                GameManager.instance.isMultiplayer = true;
                 SetTurnOrder();
                 _server.JoinRoom(joinLobbyInput.text);
             } else {

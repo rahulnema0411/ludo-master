@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using Zenject;
+using Photon.Realtime;
 
 public class Dice : MonoBehaviour {
     
