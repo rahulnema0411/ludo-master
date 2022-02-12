@@ -66,11 +66,14 @@ public class Player : MonoBehaviour {
 
             _signalBus.Fire(
                 new MovePawnSignal(
-                    toPosition: newVectorPosition,
+                    toPositionX: newVectorPosition.x,
+                    toPositionY: newVectorPosition.y,
+                    toPositionZ: newVectorPosition.z,
                     newPosition: newPosition,
                     rollCount: roll,
-                    square: path[newPosition],
-                    pawn: pawns[signal.id]
+                    squareId: path[newPosition].id,
+                    pawnID: pawns[signal.id].pawnId,
+                    pawnColor: pawns[signal.id].pawnColor
                 )
             );
             roll = 0;

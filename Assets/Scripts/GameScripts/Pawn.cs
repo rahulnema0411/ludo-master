@@ -40,21 +40,22 @@ public class Pawn : MonoBehaviour {
     }
 
     private void Move(MovePawnSignal signal) {
-        if (signal.pawn.pawnId == pawnId && signal.pawn.pawnColor == pawnColor) {
-            transform.position = signal.toPosition;
+        if (signal.pawnID == pawnId && signal.pawnColor == pawnColor && !signal.thrownByFromRESystem) {
+            transform.position = new Vector3(signal.toPositionX, signal.toPositionY, signal.toPositionZ);
             currentPosition = signal.newPosition;
             _signalBus.Fire(new TurnEndSignal { 
-                pawn = this,
+                pawnId = this.pawnId,
+                pawnColor = this.pawnColor,
                 previousTurnRoll = signal.rollCount,
                 color = pawnColor, 
-                square = signal.square
+                squareId = signal.squareId
             });
         }
         turnHighlighter.SetActive(false);
     }
 
     private void MoveHome(KillPawnSignal signalData) {
-        if(signalData.pawn.pawnColor == pawnColor && signalData.pawn.pawnId == pawnId) {
+        if(signalData.pawnColor == pawnColor && signalData.pawnId == pawnId) {
             transform.position = pawnStartingPosition;
             currentPosition = -1;
         }

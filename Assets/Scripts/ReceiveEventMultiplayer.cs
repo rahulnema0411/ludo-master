@@ -41,26 +41,32 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
         switch (eventCode) {
             case EventCode.PlayerTurnSignalEventCode:
                 PlayerTurnSignal playerTurnSignal = JsonConvert.DeserializeObject<PlayerTurnSignal>(s);
+                playerTurnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(playerTurnSignal);
                 break;
             case EventCode.SelectedPawnSignalEventCode:
                 SelectedPawnSignal selectedPawnSignal = JsonConvert.DeserializeObject<SelectedPawnSignal>(s);
+                selectedPawnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(selectedPawnSignal);
                 break;
             case EventCode.DiceResultSignalEventCode:
                 DiceResultSignal diceResultSignal = JsonConvert.DeserializeObject<DiceResultSignal>(s);
+                diceResultSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(diceResultSignal);
                 break;
             case EventCode.MovePawnSignalEventCode:
                 MovePawnSignal movePawnSignal = JsonConvert.DeserializeObject<MovePawnSignal>(s);
+                movePawnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(movePawnSignal);
                 break;
             case EventCode.TurnEndSignalEventCode:
                 TurnEndSignal turnEndSignal = JsonConvert.DeserializeObject<TurnEndSignal>(s);
+                turnEndSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(turnEndSignal);
                 break;
             case EventCode.KillPawnSignalEventCode:
                 KillPawnSignal killPawnSignal = JsonConvert.DeserializeObject<KillPawnSignal>(s);
+                killPawnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(killPawnSignal);
                 break;
         }

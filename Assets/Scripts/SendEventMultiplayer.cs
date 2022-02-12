@@ -31,35 +31,37 @@ public class SendEventMultiplayer : MonoBehaviour {
 
     private void SyncPlayerTurnSignal(PlayerTurnSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.PlayerTurnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.PlayerTurnSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncDiceResultSignal(DiceResultSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.DiceResultSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.DiceResultSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncSelectedPawnSignal(SelectedPawnSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.SelectedPawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.SelectedPawnSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncMovePawnSignal(MovePawnSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.MovePawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.MovePawnSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncTurnEndSignal(TurnEndSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.TurnEndSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.TurnEndSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncKillPawnSignal(KillPawnSignal signalData) {
         var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { json.ToString() }, signalData.thrownByFromRESystem);
     }
 
-    private static void RaiseEvent(byte EventCode, object[] content) {
-        PhotonNetwork.RaiseEvent(EventCode, content, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+    private static void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {
+        if(!thrownByRESystem) {
+            PhotonNetwork.RaiseEvent(EventCode, content, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+        }
     }
 }
