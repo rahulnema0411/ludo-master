@@ -19,12 +19,12 @@ public class Menu : MonoBehaviour {
         _signalBus = signalBus;
     }
 
-    private void SubsribeToSignals() {
+    private void SubscribeToSignals() {
         _signalBus.Subscribe<LobbyJoinSignal>(OpenLobby);
     }
 
     private void Start() {
-        SubsribeToSignals();
+        SubscribeToSignals();
         SetButtons();
         ClearMenu();
         playModeSelect.gameObject.SetActive(true);
@@ -60,6 +60,4 @@ public class Menu : MonoBehaviour {
         onlineMenuController.gameObject.SetActive(false);
         playModeSelect.gameObject.SetActive(false);
     }
-
-
 }
