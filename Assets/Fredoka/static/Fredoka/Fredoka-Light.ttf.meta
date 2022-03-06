@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: b67e43fb702731d45ac93fe93517913f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Fredoka
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6667176959e8e9840b56cb6ca6215d71, type: 3}
+  - {fileID: 12800000, guid: 85ea680b3f6f9304496ed8d4446e33be, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
