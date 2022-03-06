@@ -10,6 +10,7 @@ public class Dice : MonoBehaviour {
     [SerializeField] public Sprite[] diceFaces;
     [SerializeField] public SpriteRenderer dice;
     [SerializeField] public BoxCollider2D diceCollider;
+    [SerializeField] public GameObject arrow;
 
     public string diceID;
 
@@ -26,6 +27,11 @@ public class Dice : MonoBehaviour {
 
     private void SubscribeToSignals() {
         _signalBus.Subscribe<PlayerTurnSignal>(ShowOrHideDice);
+        _signalBus.Subscribe<TurnEndSignal>(HideArrow);
+    }
+
+    private void HideArrow() {
+        arrow.SetActive(false);
     }
 
     private void ShowOrHideDice(PlayerTurnSignal signal) {
@@ -40,6 +46,15 @@ public class Dice : MonoBehaviour {
 
     void Update() {
         DetectHit();
+        EnableArrow();
+    }
+
+    private void EnableArrow() {
+        if (diceCollider.isActiveAndEnabled) {
+            arrow.SetActive(true);
+        } else {
+            arrow.SetActive(false);
+        }
     }
 
     private void DetectHit() {
@@ -56,9 +71,9 @@ public class Dice : MonoBehaviour {
 
     private IEnumerator RollDice() {
         diceCollider.enabled = false;
-        for (int i = 0;i < 10;i++) {
+        for (int i = 0;i < 20;i++) {
             dice.sprite = diceFaces[Random.Range(0, 6)];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
         int roll = Random.Range(0, 6);
         dice.sprite = diceFaces[roll];

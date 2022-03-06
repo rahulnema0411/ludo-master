@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public string color;
     [SerializeField] public string start;
     [SerializeField] public string end;
+    [SerializeField] public Animator backGroundAnimator;
 
     private int roll;
 
@@ -34,6 +35,18 @@ public class Player : MonoBehaviour {
     private void SubscribeSignals() {
         _signalBus.Subscribe<DiceResultSignal>(StoreDiceResult);
         _signalBus.Subscribe<SelectedPawnSignal>(MovePawn);
+        _signalBus.Subscribe<PlayerTurnSignal>(AnimateHome);
+        _signalBus.Subscribe<TurnEndSignal>(StopHomeAnimation);
+    }
+
+    private void AnimateHome(PlayerTurnSignal signal) {
+        if(signal.color.Equals(color.ToLower())) {
+            backGroundAnimator.SetBool("Shine", true);
+        }
+    }
+    
+    private void StopHomeAnimation(TurnEndSignal signal) {
+        backGroundAnimator.SetBool("Shine", false);
     }
 
     private void StoreDiceResult(DiceResultSignal signal) {
@@ -49,7 +62,7 @@ public class Player : MonoBehaviour {
             } else {
                 roll = signal.roll;
             }
-        }   
+        } 
     }
 
     private void MovePawn(SelectedPawnSignal signal) {
