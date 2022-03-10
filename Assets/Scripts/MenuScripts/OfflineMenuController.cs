@@ -29,29 +29,17 @@ public class OfflineMenuController : MonoBehaviour
     }
 
     private void StartTwoPlayerGame() {
-        string[] TurnOrder = new string[2];
-        TurnOrder[0] = "red";
-        TurnOrder[1] = "green";
-        GameManager.instance.TurnOrder = TurnOrder;
+        PlayerPrefs.SetString("turnOrder", "red yellow");
         LoadScene();
     }
 
     private void StartThreePlayerGame() {
-        string[] TurnOrder = new string[3];
-        TurnOrder[0] = "red";
-        TurnOrder[1] = "green";
-        TurnOrder[2] = "yellow";
-        GameManager.instance.TurnOrder = TurnOrder;
+        PlayerPrefs.SetString("turnOrder", "red yellow blue");
         LoadScene();
     }
 
     private void StartFourPlayerGame() {
-        string[] TurnOrder = new string[4];
-        TurnOrder[0] = "red";
-        TurnOrder[1] = "green";
-        TurnOrder[2] = "yellow";
-        TurnOrder[3] = "blue";
-        GameManager.instance.TurnOrder = TurnOrder;
+        PlayerPrefs.SetString("turnOrder", "red yellow blue green");
         LoadScene();
     }
 

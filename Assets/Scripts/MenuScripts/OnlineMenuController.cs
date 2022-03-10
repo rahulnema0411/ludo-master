@@ -79,27 +79,16 @@ public class OnlineMenuController : MonoBehaviour {
     }
 
     private static void SetTurnOrder(int players = 2) {
-        string[] TurnOrder = new string[0];
         switch (players) {
             case 2:
-                TurnOrder = new string[2];
-                TurnOrder[0] = "red";
-                TurnOrder[1] = "yellow";
+                PlayerPrefs.SetString("turnOrder", "red yellow");
                 break;
             case 3:
-                TurnOrder = new string[3];
-                TurnOrder[0] = "red";
-                TurnOrder[1] = "yellow";
-                TurnOrder[2] = "green";
+                PlayerPrefs.SetString("turnOrder", "red yellow blue");
                 break;
             case 4:
-                TurnOrder = new string[4];
-                TurnOrder[0] = "red";
-                TurnOrder[1] = "green";
-                TurnOrder[2] = "yellow";
-                TurnOrder[3] = "blue";
+                PlayerPrefs.SetString("turnOrder", "red yellow blue green");
                 break;
         }
-        GameManager.instance.TurnOrder = TurnOrder;
     }
 }

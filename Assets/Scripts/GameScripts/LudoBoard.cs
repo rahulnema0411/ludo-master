@@ -31,8 +31,14 @@ public class LudoBoard : MonoBehaviour {
     }
 
     private void ActivatePlayers() {
-        if(GameManager.instance.TurnOrder != null) {
-            TurnOrder = GameManager.instance.TurnOrder;
+        string turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        TurnOrder = turnOrder.Split(' ');
+        foreach(Player player in players) {
+            if(turnOrder.Contains(player.color.ToLower())) {
+                player.gameObject.SetActive(true);
+            } else {
+                player.gameObject.SetActive(false);
+            }
         }
     }
 
