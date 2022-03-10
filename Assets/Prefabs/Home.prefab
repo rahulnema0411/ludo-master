@@ -104,6 +104,7 @@ MonoBehaviour:
   pawnId: 0
   currentPosition: 0
   turnHighlighter: {fileID: 943351937411613568}
+  Home: {fileID: 3262644081360613082}
 --- !u!58 &3453027329550878813
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -470,6 +471,7 @@ MonoBehaviour:
   pawnId: 0
   currentPosition: 0
   turnHighlighter: {fileID: 4375307409651114611}
+  Home: {fileID: 3262644081360613082}
 --- !u!58 &5759535963163681710
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -815,6 +817,7 @@ MonoBehaviour:
   pawnId: 0
   currentPosition: 0
   turnHighlighter: {fileID: 5323645818075850312}
+  Home: {fileID: 3262644081360613082}
 --- !u!58 &7299555889940094076
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1017,6 +1020,7 @@ MonoBehaviour:
   pawnId: 0
   currentPosition: 0
   turnHighlighter: {fileID: 2475914941319802535}
+  Home: {fileID: 3262644081360613082}
 --- !u!58 &6037120989368379073
 CircleCollider2D:
   m_ObjectHideFlags: 0

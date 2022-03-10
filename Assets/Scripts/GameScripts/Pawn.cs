@@ -11,8 +11,10 @@ public class Pawn : MonoBehaviour {
     public int pawnId;
     public int currentPosition;
     public GameObject turnHighlighter;
+    public Player Home;
     
     private Vector3 pawnStartingPosition;
+    private Vector3 targetPosition;
 
     private SignalBus _signalBus;
 
@@ -24,6 +26,7 @@ public class Pawn : MonoBehaviour {
     private void Awake() {
         SubcribeToSignals();
         pawnStartingPosition = transform.position;
+        targetPosition = transform.position;
     }
 
     private void SubcribeToSignals() {
@@ -41,17 +44,32 @@ public class Pawn : MonoBehaviour {
 
     private void Move(MovePawnSignal signal) {
         if (signal.pawnID == pawnId && signal.pawnColor == pawnColor && !signal.thrownByFromRESystem) {
-            transform.position = new Vector3(signal.toPositionX, signal.toPositionY, signal.toPositionZ);
-            currentPosition = signal.newPosition;
-            _signalBus.Fire(new TurnEndSignal { 
-                pawnId = this.pawnId,
-                pawnColor = this.pawnColor,
-                previousTurnRoll = signal.rollCount,
-                color = pawnColor, 
-                squareId = signal.squareId
-            });
+            
+            StartCoroutine(HopPawn(signal));
         }
         turnHighlighter.SetActive(false);
+    }
+
+    private IEnumerator HopPawn(MovePawnSignal signal) {
+        int rollCount = currentPosition == -1 ? 1 : signal.rollCount;
+        for (int i = 0; i < rollCount; i++) {
+            int newPosition = currentPosition + 1;
+            targetPosition = Home.path[newPosition].position;
+            yield return new WaitForSeconds(0.2f);
+            currentPosition = newPosition;
+        }
+
+        FireTurnEndSignal(signal);
+    }
+
+    private void FireTurnEndSignal(MovePawnSignal signal) {
+        _signalBus.Fire(new TurnEndSignal {
+            pawnId = this.pawnId,
+            pawnColor = this.pawnColor,
+            previousTurnRoll = signal.rollCount,
+            color = pawnColor,
+            squareId = signal.squareId
+        });
     }
 
     private void MoveHome(KillPawnSignal signalData) {
@@ -63,6 +81,11 @@ public class Pawn : MonoBehaviour {
 
     void Update() {
         DetectHit();
+        MovePawn();
+    }
+
+    private void MovePawn() {
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.1f);
     }
 
     private void DetectHit() {
