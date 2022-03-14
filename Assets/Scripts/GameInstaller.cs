@@ -7,6 +7,8 @@ using Zenject;
 public class GameInstaller : MonoInstaller {
 
     public LudoBoard ludoBoard;
+    public SendEventMultiplayer sendEventMultiplayer;
+    public ReceiveEventMultiplayer receiveEventMultiplayer;
 
     public override void InstallBindings() {
         SignalBusInstaller.Install(Container);
@@ -25,5 +27,7 @@ public class GameInstaller : MonoInstaller {
 
     private void BindIntances() {
         Container.BindInstance(ludoBoard).AsSingle();
+        Container.BindInstance(sendEventMultiplayer).AsSingle();
+        Container.BindInstance(receiveEventMultiplayer).AsSingle();
     }
 }

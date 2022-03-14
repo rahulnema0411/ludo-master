@@ -12,6 +12,9 @@ public class LudoBoard : MonoBehaviour {
     public Player[] players;
 
     public string[] TurnOrder;
+    public bool isMultiplayer;
+    public bool host;
+    public string userPawnColor;
 
     private int turnIndex;
 
@@ -23,14 +26,14 @@ public class LudoBoard : MonoBehaviour {
     }
 
     public void InitializeBoard() {
+        GetPlayerPrefsData();
         InitializeMainPath();
         InitializePlayers();
         SubscribeToSignals();
-        ActivatePlayers();
         turnIndex = 0;
     }
 
-    private void ActivatePlayers() {
+    public void ActivatePlayers() {
         string turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
         TurnOrder = turnOrder.Split(' ');
         foreach(Player player in players) {
@@ -40,6 +43,11 @@ public class LudoBoard : MonoBehaviour {
                 player.gameObject.SetActive(false);
             }
         }
+    }
+
+    private void GetPlayerPrefsData() {
+        host = PlayerPrefs.GetString("host", "no") == "yes" ? true : false;
+        isMultiplayer = PlayerPrefs.GetString("multiplayer", "false") == "true" ? true : false;
     }
 
     private void SubscribeToSignals() {

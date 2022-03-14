@@ -10,10 +10,14 @@ using Newtonsoft.Json;
 public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
+    private SendEventMultiplayer _sendEventMultiplayer;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard, SendEventMultiplayer sendEventMultiplayer) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
+        _sendEventMultiplayer = sendEventMultiplayer;
     }
 
     private void OnEnable() {
@@ -68,6 +72,19 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
                 KillPawnSignal killPawnSignal = JsonConvert.DeserializeObject<KillPawnSignal>(s);
                 killPawnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(killPawnSignal);
+                break;
+            case EventCode.RequestTurnOrderSignal:
+                if(_ludoBoard.host) {
+                    _sendEventMultiplayer.SendTurnOrderSignal();
+                }
+                break;
+            case EventCode.TurnOrderSignal:
+                if(!_ludoBoard.host) {
+                    PlayerPrefs.SetString("turnOrder", s);
+                    _ludoBoard.TurnOrder = s.Split(' ');
+                    _ludoBoard.ActivatePlayers();
+                    _ludoBoard.Play();
+                }
                 break;
         }
     }

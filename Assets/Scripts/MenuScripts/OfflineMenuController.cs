@@ -29,16 +29,19 @@ public class OfflineMenuController : MonoBehaviour
     }
 
     private void StartTwoPlayerGame() {
+        PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow");
         LoadScene();
     }
 
     private void StartThreePlayerGame() {
+        PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow blue");
         LoadScene();
     }
 
     private void StartFourPlayerGame() {
+        PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow blue green");
         LoadScene();
     }

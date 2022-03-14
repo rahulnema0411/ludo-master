@@ -10,10 +10,12 @@ using Newtonsoft.Json;
 public class SendEventMultiplayer : MonoBehaviour {
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
     }
 
     private void Start() {
@@ -51,6 +53,15 @@ public class SendEventMultiplayer : MonoBehaviour {
 
     private void SyncKillPawnSignal(KillPawnSignal signalData) {
         RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
+    }
+    
+    public void RequestTurnOrderSignal() {
+        Debug.LogError("Requesting Turn Order");
+        RaiseEvent(EventCode.RequestTurnOrderSignal, new object[] { "" }, false);
+    }
+    
+    public void SendTurnOrderSignal() {
+        RaiseEvent(EventCode.TurnOrderSignal, new object[] { PlayerPrefs.GetString("turnOrder", "red yellow") }, false);
     }
 
     private static void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {
