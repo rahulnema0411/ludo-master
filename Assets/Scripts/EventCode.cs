@@ -14,6 +14,6 @@ public class EventCode {
 
     //color selection
     public const byte ColorSelectionEventCode = 101;
-    public const byte RequestTurnOrderSignal = 102;
-    public const byte TurnOrderSignal = 103;
+    public const byte RequestGameDataSignal = 102;
+    public const byte GameDataSignal = 103;
 }

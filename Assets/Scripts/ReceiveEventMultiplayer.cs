@@ -12,12 +12,14 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
     private SignalBus _signalBus;
     private LudoBoard _ludoBoard;
     private SendEventMultiplayer _sendEventMultiplayer;
+    private GameEngine _gameEngine;
 
     [Inject]
-    public void Construct(SignalBus signalBus, LudoBoard ludoBoard, SendEventMultiplayer sendEventMultiplayer) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard, SendEventMultiplayer sendEventMultiplayer, GameEngine gameEngine) {
         _signalBus = signalBus;
         _ludoBoard = ludoBoard;
         _sendEventMultiplayer = sendEventMultiplayer;
+        _gameEngine = gameEngine;
     }
 
     private void OnEnable() {
@@ -73,16 +75,19 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
                 killPawnSignal.thrownByFromRESystem = true;
                 _signalBus.Fire(killPawnSignal);
                 break;
-            case EventCode.RequestTurnOrderSignal:
+            case EventCode.RequestGameDataSignal:
                 if(_ludoBoard.host) {
-                    _sendEventMultiplayer.SendTurnOrderSignal();
+                    _sendEventMultiplayer.SendGameDataSignal();
                 }
                 break;
-            case EventCode.TurnOrderSignal:
+            case EventCode.GameDataSignal:
                 if(!_ludoBoard.host) {
-                    PlayerPrefs.SetString("turnOrder", s);
-                    _ludoBoard.TurnOrder = s.Split(' ');
+                    GameData gameData = JsonConvert.DeserializeObject<GameData>(s);
+                    PlayerPrefs.SetString("turnOrder", gameData.turnOrder);
+                    _ludoBoard.TurnOrder = gameData.turnOrder.Split(' ');
                     _ludoBoard.ActivatePlayers();
+                    _ludoBoard.userColor = gameData.userColor;
+                    _gameEngine.userColorText.text = gameData.userColor;
                     _ludoBoard.Play();
                 }
                 break;

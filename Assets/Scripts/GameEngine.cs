@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using TMPro;
 
 public class GameEngine : MonoBehaviour {
 
     public LudoBoard ludoBoard;
     public ColorSelectionPanel selectionPanel;
+    public TextMeshProUGUI userColorText;
 
     private bool isMultiplayer, host;
 
@@ -24,14 +26,16 @@ public class GameEngine : MonoBehaviour {
         GetPlayerPrefsData();
         ludoBoard.InitializeBoard();
         if(isMultiplayer) {
-            //selectionPanel.gameObject.SetActive(true);
+            userColorText.gameObject.SetActive(true);
             if (host) {
                 ludoBoard.ActivatePlayers();
+                userColorText.text = ludoBoard.AssignUserColor();
                 ludoBoard.Play();
             } else {
-                _sendEventMultiplayer.RequestTurnOrderSignal();
+                _sendEventMultiplayer.RequestGameDataSignal();
             }
         } else {
+            userColorText.gameObject.SetActive(false);
             ludoBoard.ActivatePlayers();
             ludoBoard.Play();
         }

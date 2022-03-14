@@ -55,13 +55,15 @@ public class SendEventMultiplayer : MonoBehaviour {
         RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
     
-    public void RequestTurnOrderSignal() {
-        Debug.LogError("Requesting Turn Order");
-        RaiseEvent(EventCode.RequestTurnOrderSignal, new object[] { "" }, false);
+    public void RequestGameDataSignal() {
+        RaiseEvent(EventCode.RequestGameDataSignal, new object[] { "" }, false);
     }
     
-    public void SendTurnOrderSignal() {
-        RaiseEvent(EventCode.TurnOrderSignal, new object[] { PlayerPrefs.GetString("turnOrder", "red yellow") }, false);
+    public void SendGameDataSignal() {
+        GameData gameData = new GameData();
+        gameData.turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        gameData.userColor = _ludoBoard.AssignUserColor();
+        RaiseEvent(EventCode.GameDataSignal, new object[] { JsonConvert.SerializeObject(gameData).ToString() }, false);
     }
 
     private static void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {

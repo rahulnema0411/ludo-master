@@ -93,3 +93,8 @@ public struct KillPawnSignal {
 public struct LobbyJoinSignal {
 
 }
+
+public struct GameData {
+    public string turnOrder;
+    public string userColor;
+}

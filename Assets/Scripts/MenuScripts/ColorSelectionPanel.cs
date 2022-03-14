@@ -29,8 +29,4 @@ public class ColorSelectionPanel : MonoBehaviour {
             }
         }
     }
-
-    void Start() {
-        
-    }
 }

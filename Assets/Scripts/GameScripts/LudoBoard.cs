@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -12,9 +13,10 @@ public class LudoBoard : MonoBehaviour {
     public Player[] players;
 
     public string[] TurnOrder;
+    public List<string> UnassignedColors;
     public bool isMultiplayer;
     public bool host;
-    public string userPawnColor;
+    public string userColor;
 
     private int turnIndex;
 
@@ -36,6 +38,7 @@ public class LudoBoard : MonoBehaviour {
     public void ActivatePlayers() {
         string turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
         TurnOrder = turnOrder.Split(' ');
+        UnassignedColors = TurnOrder.ToList();
         foreach(Player player in players) {
             if(turnOrder.Contains(player.color.ToLower())) {
                 player.gameObject.SetActive(true);
@@ -43,6 +46,19 @@ public class LudoBoard : MonoBehaviour {
                 player.gameObject.SetActive(false);
             }
         }
+    }
+
+    public string AssignUserColor() {
+        string assignedColor;
+        if( UnassignedColors.Count > 0 ) {
+            System.Random random = new System.Random();
+            int randomVal = random.Next(0, UnassignedColors.Count);
+            assignedColor = userColor = TurnOrder[randomVal];
+            UnassignedColors.RemoveAt(UnassignedColors.IndexOf(userColor));
+        } else {
+            assignedColor = "";
+        }
+        return assignedColor;
     }
 
     private void GetPlayerPrefsData() {
