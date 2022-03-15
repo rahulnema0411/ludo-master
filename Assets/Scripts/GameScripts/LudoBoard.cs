@@ -53,8 +53,8 @@ public class LudoBoard : MonoBehaviour {
         if( UnassignedColors.Count > 0 ) {
             System.Random random = new System.Random();
             int randomVal = random.Next(0, UnassignedColors.Count);
-            assignedColor = userColor = TurnOrder[randomVal];
-            UnassignedColors.RemoveAt(UnassignedColors.IndexOf(userColor));
+            assignedColor = UnassignedColors[randomVal];
+            UnassignedColors.RemoveAt(UnassignedColors.IndexOf(assignedColor));
         } else {
             assignedColor = "";
         }

@@ -29,7 +29,8 @@ public class GameEngine : MonoBehaviour {
             userColorText.gameObject.SetActive(true);
             if (host) {
                 ludoBoard.ActivatePlayers();
-                userColorText.text = ludoBoard.AssignUserColor();
+                ludoBoard.userColor = ludoBoard.AssignUserColor();
+                userColorText.text = ludoBoard.userColor;
                 ludoBoard.Play();
             } else {
                 _sendEventMultiplayer.RequestGameDataSignal();
