@@ -15,10 +15,12 @@ public class Dice : MonoBehaviour {
     public string diceID;
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
     }
 
     private void Start() {
@@ -35,12 +37,22 @@ public class Dice : MonoBehaviour {
     }
 
     private void ShowOrHideDice(PlayerTurnSignal signal) {
-        if(signal.color.ToLower().Equals(diceID.ToLower())) {
-            diceCollider.enabled = true;
-            gameObject.SetActive(true);
+        if(_ludoBoard.isMultiplayer) {
+            if (signal.color.ToLower().Equals(diceID.ToLower()) && signal.color.ToLower().Equals(_ludoBoard.userColor)) {
+                diceCollider.enabled = true;
+                gameObject.SetActive(true);
+            } else {
+                diceCollider.enabled = false;
+                gameObject.SetActive(false);
+            }
         } else {
-            diceCollider.enabled = false;
-            gameObject.SetActive(false);
+            if(signal.color.ToLower().Equals(diceID.ToLower())) {
+                diceCollider.enabled = true;
+                gameObject.SetActive(true);
+            } else {
+                diceCollider.enabled = false;
+                gameObject.SetActive(false);
+            }
         }
     }
 
