@@ -105,12 +105,12 @@ public class Pawn : MonoBehaviour {
     }
 
     private void EnableHitForRespectivePawn(DiceResultSignal signal) {
-        if(signal.color.ToLower().Equals(pawnColor.ToLower())) {
-            if(signal.roll == 6) {
+        if (signal.color.ToLower().Equals(pawnColor.ToLower())) {
+            if(signal.roll == 6 && currentPosition == -1 && currentPosition != 56 && ((currentPosition + signal.roll) < 57)) {
                 turnHighlighter.SetActive(true);
                 boxCollider.enabled = true;
-            } else { 
-                if(currentPosition != -1) {
+            } else {
+                if(currentPosition != -1 && currentPosition != 56 && ((currentPosition + signal.roll) < 57)) {
                     turnHighlighter.SetActive(true);
                     boxCollider.enabled = true;
                 }
