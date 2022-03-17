@@ -87,7 +87,7 @@ public class Dice : MonoBehaviour {
             dice.sprite = diceFaces[Random.Range(0, 6)];
             yield return new WaitForSeconds(0.05f);
         }
-        int roll = /*5;//*/Random.Range(0, 6);
+        int roll = Random.Range(0, 6);
         dice.sprite = diceFaces[roll];
         yield return new WaitForSeconds(1f);
         _signalBus.Fire(new DiceResultSignal {
