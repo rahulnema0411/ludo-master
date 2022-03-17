@@ -52,13 +52,17 @@ public class Player : MonoBehaviour {
     private void StoreDiceResult(DiceResultSignal signal) {
         if(signal.color.Equals(color)) {
             if (isEveryPawnHome()) {
-                if(signal.roll == 6) {
+                if (signal.roll == 6) {
                     roll = signal.roll;
                 } else {
                     _signalBus.Fire(new TurnEndSignal {
                         color = color
                     });
                 }
+            } else if (noPawnCanMove()) {
+                _signalBus.Fire(new TurnEndSignal {
+                    color = color
+                });
             } else {
                 roll = signal.roll;
             }
@@ -122,5 +126,15 @@ public class Player : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    private bool noPawnCanMove() {
+        int count = 0;
+        foreach(Pawn pawn in pawns) {
+            if(pawn.canMove) {
+                count++;
+            }
+        }
+        return count == 0;
     }
 }

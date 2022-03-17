@@ -12,6 +12,7 @@ public class Pawn : MonoBehaviour {
     public int currentPosition;
     public GameObject turnHighlighter;
     public Player Home;
+    public bool canMove;
     
     private Vector3 pawnStartingPosition;
     private Vector3 targetPosition;
@@ -106,13 +107,19 @@ public class Pawn : MonoBehaviour {
 
     private void EnableHitForRespectivePawn(DiceResultSignal signal) {
         if (signal.color.ToLower().Equals(pawnColor.ToLower())) {
-            if(signal.roll == 6 && currentPosition == -1 && currentPosition != 56 && ((currentPosition + signal.roll) < 57)) {
+            if(signal.roll == 6 && currentPosition == -1) {
                 turnHighlighter.SetActive(true);
                 boxCollider.enabled = true;
+                canMove = true;
             } else {
                 if(currentPosition != -1 && currentPosition != 56 && ((currentPosition + signal.roll) < 57)) {
                     turnHighlighter.SetActive(true);
                     boxCollider.enabled = true;
+                    canMove = true;
+                } else {
+                    turnHighlighter.SetActive(false);
+                    boxCollider.enabled = false;
+                    canMove = false;
                 }
             }
         } else {
