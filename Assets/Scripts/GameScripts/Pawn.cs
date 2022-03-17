@@ -44,7 +44,6 @@ public class Pawn : MonoBehaviour {
 
     private void Move(MovePawnSignal signal) {
         if (signal.pawnID == pawnId && signal.pawnColor == pawnColor && !signal.thrownByFromRESystem) {
-            
             StartCoroutine(HopPawn(signal));
         }
         turnHighlighter.SetActive(false);
@@ -74,7 +73,7 @@ public class Pawn : MonoBehaviour {
 
     private void MoveHome(KillPawnSignal signalData) {
         if(signalData.pawnColor == pawnColor && signalData.pawnId == pawnId) {
-            transform.position = pawnStartingPosition;
+            targetPosition = pawnStartingPosition;
             currentPosition = -1;
         }
     }
