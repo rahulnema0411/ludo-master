@@ -31,6 +31,7 @@ public class GameEngine : MonoBehaviour {
                 ludoBoard.ActivatePlayers();
                 ludoBoard.userColor = ludoBoard.AssignUserColor();
                 userColorText.text = ludoBoard.userColor;
+                SetDiceResults();
                 ludoBoard.Play();
             } else {
                 _sendEventMultiplayer.RequestGameDataSignal();
@@ -41,6 +42,16 @@ public class GameEngine : MonoBehaviour {
             ludoBoard.Play();
         }
 
+    }
+
+    public void SetDiceResults() {
+        foreach (Player player in ludoBoard.players) {
+            if (ludoBoard.userColor.ToLower().Equals(player.diceResult.color.ToLower())) {
+                player.diceResult.gameObject.SetActive(false);
+            } else {
+                player.diceResult.gameObject.SetActive(true);
+            }
+        }
     }
 
     private void GetPlayerPrefsData() {

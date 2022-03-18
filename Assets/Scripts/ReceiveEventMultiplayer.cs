@@ -88,6 +88,7 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
                     _ludoBoard.ActivatePlayers();
                     _ludoBoard.userColor = gameData.userColor;
                     _gameEngine.userColorText.text = gameData.userColor;
+                    _gameEngine.SetDiceResults();
                     _ludoBoard.Play();
                 }
                 break;

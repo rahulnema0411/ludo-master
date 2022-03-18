@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public Transform FinalPath;
     [SerializeField] public Pawn[] pawns;
     [SerializeField] public Dice dice;
+    [SerializeField] public DiceResult diceResult;
     [SerializeField] public string color;
     [SerializeField] public string start;
     [SerializeField] public string end;
@@ -30,6 +31,14 @@ public class Player : MonoBehaviour {
         SetPawnValue();
         SetPath();
         SubscribeSignals();
+    }
+
+    private void SetDiceResult() {
+        if(_ludoBoard.isMultiplayer) {
+            diceResult.gameObject.SetActive(true);
+        } else {
+            diceResult.gameObject.SetActive(false);
+        }
     }
 
     private void SubscribeSignals() {
