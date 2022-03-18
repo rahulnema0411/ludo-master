@@ -10,14 +10,17 @@ public class Dice : MonoBehaviour {
     [SerializeField] public Sprite[] diceFaces;
     [SerializeField] public SpriteRenderer dice;
     [SerializeField] public BoxCollider2D diceCollider;
+    [SerializeField] public GameObject arrow;
 
     public string diceID;
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
     }
 
     private void Start() {
@@ -26,20 +29,44 @@ public class Dice : MonoBehaviour {
 
     private void SubscribeToSignals() {
         _signalBus.Subscribe<PlayerTurnSignal>(ShowOrHideDice);
+        _signalBus.Subscribe<TurnEndSignal>(HideArrow);
+    }
+
+    private void HideArrow() {
+        arrow.SetActive(false);
     }
 
     private void ShowOrHideDice(PlayerTurnSignal signal) {
-        if(signal.color.ToLower().Equals(diceID.ToLower())) {
-            diceCollider.enabled = true;
-            gameObject.SetActive(true);
+        if(_ludoBoard.isMultiplayer) {
+            if (signal.color.ToLower().Equals(diceID.ToLower()) && signal.color.ToLower().Equals(_ludoBoard.userColor)) {
+                diceCollider.enabled = true;
+                gameObject.SetActive(true);
+            } else {
+                diceCollider.enabled = false;
+                gameObject.SetActive(false);
+            }
         } else {
-            diceCollider.enabled = false;
-            gameObject.SetActive(false);
+            if(signal.color.ToLower().Equals(diceID.ToLower())) {
+                diceCollider.enabled = true;
+                gameObject.SetActive(true);
+            } else {
+                diceCollider.enabled = false;
+                gameObject.SetActive(false);
+            }
         }
     }
 
     void Update() {
         DetectHit();
+        EnableArrow();
+    }
+
+    private void EnableArrow() {
+        if (diceCollider.isActiveAndEnabled) {
+            arrow.SetActive(true);
+        } else {
+            arrow.SetActive(false);
+        }
     }
 
     private void DetectHit() {
@@ -56,9 +83,9 @@ public class Dice : MonoBehaviour {
 
     private IEnumerator RollDice() {
         diceCollider.enabled = false;
-        for (int i = 0;i < 10;i++) {
+        for (int i = 0;i < 20;i++) {
             dice.sprite = diceFaces[Random.Range(0, 6)];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
         int roll = Random.Range(0, 6);
         dice.sprite = diceFaces[roll];

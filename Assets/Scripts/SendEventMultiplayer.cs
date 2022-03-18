@@ -10,10 +10,12 @@ using Newtonsoft.Json;
 public class SendEventMultiplayer : MonoBehaviour {
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
     }
 
     private void Start() {
@@ -30,36 +32,43 @@ public class SendEventMultiplayer : MonoBehaviour {
     }
 
     private void SyncPlayerTurnSignal(PlayerTurnSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.PlayerTurnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.PlayerTurnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncDiceResultSignal(DiceResultSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.DiceResultSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.DiceResultSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncSelectedPawnSignal(SelectedPawnSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.SelectedPawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.SelectedPawnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncMovePawnSignal(MovePawnSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.MovePawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.MovePawnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncTurnEndSignal(TurnEndSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.TurnEndSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.TurnEndSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
     }
 
     private void SyncKillPawnSignal(KillPawnSignal signalData) {
-        var json = JsonConvert.SerializeObject(signalData);
-        RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { json.ToString() });
+        RaiseEvent(EventCode.KillPawnSignalEventCode, new object[] { JsonConvert.SerializeObject(signalData).ToString() }, signalData.thrownByFromRESystem);
+    }
+    
+    public void RequestGameDataSignal() {
+        RaiseEvent(EventCode.RequestGameDataSignal, new object[] { "" }, false);
+    }
+    
+    public void SendGameDataSignal() {
+        GameData gameData = new GameData();
+        gameData.turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        gameData.userColor = _ludoBoard.AssignUserColor();
+        RaiseEvent(EventCode.GameDataSignal, new object[] { JsonConvert.SerializeObject(gameData).ToString() }, false);
     }
 
-    private static void RaiseEvent(byte EventCode, object[] content) {
-        PhotonNetwork.RaiseEvent(EventCode, content, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+    private static void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {
+        if(!thrownByRESystem) {
+            PhotonNetwork.RaiseEvent(EventCode, content, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+        }
     }
 }

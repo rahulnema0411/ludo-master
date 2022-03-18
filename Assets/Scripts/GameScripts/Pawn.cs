@@ -11,8 +11,11 @@ public class Pawn : MonoBehaviour {
     public int pawnId;
     public int currentPosition;
     public GameObject turnHighlighter;
+    public Player Home;
+    public bool canMove;
     
     private Vector3 pawnStartingPosition;
+    private Vector3 targetPosition;
 
     private SignalBus _signalBus;
 
@@ -24,6 +27,7 @@ public class Pawn : MonoBehaviour {
     private void Awake() {
         SubcribeToSignals();
         pawnStartingPosition = transform.position;
+        targetPosition = transform.position;
     }
 
     private void SubcribeToSignals() {
@@ -40,28 +44,48 @@ public class Pawn : MonoBehaviour {
     }
 
     private void Move(MovePawnSignal signal) {
-        if (signal.pawn.pawnId == pawnId && signal.pawn.pawnColor == pawnColor) {
-            transform.position = signal.toPosition;
-            currentPosition = signal.newPosition;
-            _signalBus.Fire(new TurnEndSignal { 
-                pawn = this,
-                previousTurnRoll = signal.rollCount,
-                color = pawnColor, 
-                square = signal.square
-            });
+        if (signal.pawnID == pawnId && signal.pawnColor == pawnColor && !signal.thrownByFromRESystem) {
+            StartCoroutine(HopPawn(signal));
         }
         turnHighlighter.SetActive(false);
     }
 
+    private IEnumerator HopPawn(MovePawnSignal signal) {
+        int rollCount = currentPosition == -1 ? 1 : signal.rollCount;
+        for (int i = 0; i < rollCount; i++) {
+            int newPosition = currentPosition + 1;
+            targetPosition = Home.path[newPosition].position;
+            yield return new WaitForSeconds(0.2f);
+            currentPosition = newPosition;
+        }
+
+        FireTurnEndSignal(signal);
+    }
+
+    private void FireTurnEndSignal(MovePawnSignal signal) {
+        _signalBus.Fire(new TurnEndSignal {
+            pawnId = this.pawnId,
+            pawnColor = this.pawnColor,
+            previousTurnRoll = signal.rollCount,
+            color = pawnColor,
+            squareId = signal.squareId
+        });
+    }
+
     private void MoveHome(KillPawnSignal signalData) {
-        if(signalData.pawn.pawnColor == pawnColor && signalData.pawn.pawnId == pawnId) {
-            transform.position = pawnStartingPosition;
+        if(signalData.pawnColor == pawnColor && signalData.pawnId == pawnId) {
+            targetPosition = pawnStartingPosition;
             currentPosition = -1;
         }
     }
 
     void Update() {
         DetectHit();
+        MovePawn();
+    }
+
+    private void MovePawn() {
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.1f);
     }
 
     private void DetectHit() {
@@ -82,14 +106,20 @@ public class Pawn : MonoBehaviour {
     }
 
     private void EnableHitForRespectivePawn(DiceResultSignal signal) {
-        if(signal.color.ToLower().Equals(pawnColor.ToLower())) {
-            if(signal.roll == 6) {
+        if (signal.color.ToLower().Equals(pawnColor.ToLower())) {
+            if(signal.roll == 6 && currentPosition == -1) {
                 turnHighlighter.SetActive(true);
                 boxCollider.enabled = true;
-            } else { 
-                if(currentPosition != -1) {
+                canMove = true;
+            } else {
+                if(currentPosition != -1 && currentPosition != 56 && ((currentPosition + signal.roll) < 57)) {
                     turnHighlighter.SetActive(true);
                     boxCollider.enabled = true;
+                    canMove = true;
+                } else {
+                    turnHighlighter.SetActive(false);
+                    boxCollider.enabled = false;
+                    canMove = false;
                 }
             }
         } else {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,10 @@ public class LudoBoard : MonoBehaviour {
     public Player[] players;
 
     public string[] TurnOrder;
+    public List<string> UnassignedColors;
+    public bool isMultiplayer;
+    public bool host;
+    public string userColor;
 
     private int turnIndex;
 
@@ -23,17 +28,42 @@ public class LudoBoard : MonoBehaviour {
     }
 
     public void InitializeBoard() {
+        GetPlayerPrefsData();
         InitializeMainPath();
         InitializePlayers();
         SubscribeToSignals();
-        ActivatePlayers();
         turnIndex = 0;
     }
 
-    private void ActivatePlayers() {
-        if(GameManager.instance.TurnOrder != null) {
-            TurnOrder = GameManager.instance.TurnOrder;
+    public void ActivatePlayers() {
+        string turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        TurnOrder = turnOrder.Split(' ');
+        UnassignedColors = TurnOrder.ToList();
+        foreach(Player player in players) {
+            if(turnOrder.Contains(player.color.ToLower())) {
+                player.gameObject.SetActive(true);
+            } else {
+                player.gameObject.SetActive(false);
+            }
         }
+    }
+
+    public string AssignUserColor() {
+        string assignedColor;
+        if( UnassignedColors.Count > 0 ) {
+            System.Random random = new System.Random();
+            int randomVal = random.Next(0, UnassignedColors.Count);
+            assignedColor = UnassignedColors[randomVal];
+            UnassignedColors.RemoveAt(UnassignedColors.IndexOf(assignedColor));
+        } else {
+            assignedColor = "";
+        }
+        return assignedColor;
+    }
+
+    private void GetPlayerPrefsData() {
+        host = PlayerPrefs.GetString("host", "no") == "yes" ? true : false;
+        isMultiplayer = PlayerPrefs.GetString("multiplayer", "false") == "true" ? true : false;
     }
 
     private void SubscribeToSignals() {

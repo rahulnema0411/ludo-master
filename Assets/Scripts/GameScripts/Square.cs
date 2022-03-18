@@ -12,10 +12,12 @@ public class Square : MonoBehaviour
     public List<Pawn> pawnsOnThisSquare;
 
     private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
     }
 
     private void Awake() {
@@ -28,16 +30,40 @@ public class Square : MonoBehaviour
     }
 
     private void UpdatePawnsOnThisSquare(MovePawnSignal signalData) {
-        if(signalData.square.id == id) {
-            pawnsOnThisSquare.Add(signalData.pawn);
+        if(signalData.squareId == id) {
+            Pawn pawn = FindPawn(signalData);
+            if(pawn != null) {
+                pawnsOnThisSquare.Add(pawn);
+            }
         } else {
             if(pawnsOnThisSquare.Count > 0) {
-                Pawn pawn = pawnsOnThisSquare.Find(x => x.pawnId == signalData.pawn.pawnId && x.pawnColor == signalData.pawn.pawnColor);
+                Pawn pawn = pawnsOnThisSquare.Find(x => x.pawnId == signalData.pawnID && x.pawnColor == signalData.pawnColor);
                 if(pawn != null) {
                     pawnsOnThisSquare.Remove(pawn);
                 }
             }
         }
+    }
+
+    private Pawn FindPawn(MovePawnSignal signalData) {
+        Pawn pawn = null;
+        Player player = null;
+        foreach (Player p in _ludoBoard.players) {
+            if (signalData.pawnColor.ToLower().Equals(p.color.ToLower())) {
+                player = p;
+            }
+        }
+        if (player != null) {
+            foreach (Pawn p in player.pawns) {
+                if (signalData.pawnID == p.pawnId) {
+                    pawn = p;
+                }
+            }
+        } else {
+            Debug.LogError("Player not found");
+        }
+
+        return pawn;
     }
 
     private void CheckForPawnKills(TurnEndSignal signalData) {
@@ -56,14 +82,13 @@ public class Square : MonoBehaviour
 
     private IEnumerator CheckAndKillPawn(TurnEndSignal signalData) {
         yield return new WaitForSeconds(0.25f);
-        if(signalData.square != null && signalData.pawn != null) {
-            if (signalData.square.id == id && pawnsOnThisSquare.Count > 1 && !label.ToLower().Contains("star")) {
-                foreach(Pawn pawn in pawnsOnThisSquare) {
-                    if(pawn.pawnColor != signalData.pawn.pawnColor) {
-                        _signalBus.Fire(new KillPawnSignal { 
-                            pawn = pawn
-                        });
-                    }
+        if (signalData.squareId == id && pawnsOnThisSquare.Count > 1 && !label.ToLower().Contains("star")) {
+            foreach(Pawn pawn in pawnsOnThisSquare) {
+                if(pawn.pawnColor != signalData.pawnColor) {
+                    _signalBus.Fire(new KillPawnSignal { 
+                        pawnColor = pawn.pawnColor,
+                        pawnId = pawn.pawnId
+                    });
                 }
             }
         }

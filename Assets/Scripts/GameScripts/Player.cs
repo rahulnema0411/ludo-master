@@ -9,9 +9,11 @@ public class Player : MonoBehaviour {
     [SerializeField] public Transform FinalPath;
     [SerializeField] public Pawn[] pawns;
     [SerializeField] public Dice dice;
+    [SerializeField] public DiceResult diceResult;
     [SerializeField] public string color;
     [SerializeField] public string start;
     [SerializeField] public string end;
+    [SerializeField] public Animator backGroundAnimator;
 
     private int roll;
 
@@ -31,25 +33,49 @@ public class Player : MonoBehaviour {
         SubscribeSignals();
     }
 
+    private void SetDiceResult() {
+        if(_ludoBoard.isMultiplayer) {
+            diceResult.gameObject.SetActive(true);
+        } else {
+            diceResult.gameObject.SetActive(false);
+        }
+    }
+
     private void SubscribeSignals() {
         _signalBus.Subscribe<DiceResultSignal>(StoreDiceResult);
         _signalBus.Subscribe<SelectedPawnSignal>(MovePawn);
+        _signalBus.Subscribe<PlayerTurnSignal>(AnimateHome);
+        _signalBus.Subscribe<TurnEndSignal>(StopHomeAnimation);
+    }
+
+    private void AnimateHome(PlayerTurnSignal signal) {
+        if(signal.color.Equals(color.ToLower())) {
+            backGroundAnimator.SetBool("Shine", true);
+        }
+    }
+    
+    private void StopHomeAnimation(TurnEndSignal signal) {
+        backGroundAnimator.SetBool("Shine", false);
     }
 
     private void StoreDiceResult(DiceResultSignal signal) {
         if(signal.color.Equals(color)) {
             if (isEveryPawnHome()) {
-                if(signal.roll == 6) {
+                if (signal.roll == 6) {
                     roll = signal.roll;
                 } else {
                     _signalBus.Fire(new TurnEndSignal {
                         color = color
                     });
                 }
+            } else if (noPawnCanMove()) {
+                _signalBus.Fire(new TurnEndSignal {
+                    color = color
+                });
             } else {
                 roll = signal.roll;
             }
-        }   
+        } 
     }
 
     private void MovePawn(SelectedPawnSignal signal) {
@@ -61,16 +87,19 @@ public class Player : MonoBehaviour {
             } else {
                 newPosition = currentPosition + roll;
             }
-            Vector3 newVectorPosition =  new Vector3();
-            newVectorPosition = path[newPosition].position;
+            
+            Vector3 newVectorPosition = path[newPosition].position;
 
             _signalBus.Fire(
                 new MovePawnSignal(
-                    toPosition: newVectorPosition,
+                    toPositionX: newVectorPosition.x,
+                    toPositionY: newVectorPosition.y,
+                    toPositionZ: newVectorPosition.z,
                     newPosition: newPosition,
                     rollCount: roll,
-                    square: path[newPosition],
-                    pawn: pawns[signal.id]
+                    squareId: path[newPosition].id,
+                    pawnID: pawns[signal.id].pawnId,
+                    pawnColor: pawns[signal.id].pawnColor
                 )
             );
             roll = 0;
@@ -106,5 +135,15 @@ public class Player : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    private bool noPawnCanMove() {
+        int count = 0;
+        foreach(Pawn pawn in pawns) {
+            if(pawn.canMove) {
+                count++;
+            }
+        }
+        return count == 0;
     }
 }
