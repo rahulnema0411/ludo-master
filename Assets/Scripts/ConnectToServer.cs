@@ -8,10 +8,12 @@ using Photon.Realtime;
 public class ConnectToServer : MonoBehaviourPunCallbacks {
 
     private SignalBus _signalBus;
+    private Menu _menu;
 
     [Inject]
-    public void Construct(SignalBus signalBus) {
+    public void Construct(SignalBus signalBus, Menu menu) {
         _signalBus = signalBus;
+        _menu = menu;
     }
 
     void Start() {
@@ -20,6 +22,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
 
     public override void OnConnectedToMaster() {
         Debug.Log("Connected to Server");
+        _menu.onlinePlayButton.gameObject.SetActive(true);
     }
 
     public void JoinLobby() {

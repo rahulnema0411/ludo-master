@@ -43,6 +43,7 @@ public class Menu : MonoBehaviour {
             ClearMenu();
             _server.JoinLobby();
         });
+        onlinePlayButton.gameObject.SetActive(false);
 
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(delegate() {
