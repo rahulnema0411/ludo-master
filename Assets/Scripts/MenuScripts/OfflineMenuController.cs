@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class OfflineMenuController : MonoBehaviour
 {
-    public Button TwoPlayerPlay, ThreePlayerPlay, FourPlayerPlay;
+    public Button TwoPlayerPlay, ThreePlayerPlay, FourPlayerPlay, PlayButton;
 
     private void Start() {
         SetButtons();
@@ -13,37 +11,31 @@ public class OfflineMenuController : MonoBehaviour
 
     private void SetButtons() {
         TwoPlayerPlay.onClick.RemoveAllListeners();
-        TwoPlayerPlay.onClick.AddListener(delegate () {
-            StartTwoPlayerGame();
-        });
+        TwoPlayerPlay.onClick.AddListener(SetTwoPlayerGame);
 
         ThreePlayerPlay.onClick.RemoveAllListeners();
-        ThreePlayerPlay.onClick.AddListener(delegate () {
-            StartThreePlayerGame();
-        });
+        ThreePlayerPlay.onClick.AddListener(SetThreePlayerGame);
 
         FourPlayerPlay.onClick.RemoveAllListeners();
-        FourPlayerPlay.onClick.AddListener(delegate () {
-            StartFourPlayerGame();
-        });
+        FourPlayerPlay.onClick.AddListener(SetFourPlayerGame);
+
+        PlayButton.onClick.RemoveAllListeners();
+        PlayButton.onClick.AddListener(LoadScene);
     }
 
-    private void StartTwoPlayerGame() {
+    private void SetTwoPlayerGame() {
         PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow");
-        LoadScene();
     }
 
-    private void StartThreePlayerGame() {
+    private void SetThreePlayerGame() {
         PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow blue");
-        LoadScene();
     }
 
-    private void StartFourPlayerGame() {
+    private void SetFourPlayerGame() {
         PlayerPrefs.SetString("multiplayer", "false");
         PlayerPrefs.SetString("turnOrder", "red yellow blue green");
-        LoadScene();
     }
 
     private void LoadScene() {

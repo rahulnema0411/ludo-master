@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour {
         SubscribeToSignals();
         SetButtons();
         ClearMenu();
-        playModeSelect.gameObject.SetActive(true);
+        offlineMenuController.gameObject.SetActive(true);
     }
 
     private void SetButtons() {
