@@ -1,44 +1,54 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+
+
 public class OfflineMenuController : MonoBehaviour
 {
-    public Button TwoPlayerPlay, ThreePlayerPlay, FourPlayerPlay, PlayButton;
+    public ButtonComponent TwoPlayerPlay, ThreePlayerPlay, FourPlayerPlay, PlayButton;
+    public Transform selectedModeHighlighter;
 
     private void Start() {
         SetButtons();
     }
 
     private void SetButtons() {
-        TwoPlayerPlay.onClick.RemoveAllListeners();
-        TwoPlayerPlay.onClick.AddListener(SetTwoPlayerGame);
+        TwoPlayerPlay.SetOnClickListener(SetTwoPlayerGame);
 
-        ThreePlayerPlay.onClick.RemoveAllListeners();
-        ThreePlayerPlay.onClick.AddListener(SetThreePlayerGame);
+        ThreePlayerPlay.SetOnClickListener(SetThreePlayerGame);
 
-        FourPlayerPlay.onClick.RemoveAllListeners();
-        FourPlayerPlay.onClick.AddListener(SetFourPlayerGame);
+        FourPlayerPlay.SetOnClickListener(SetFourPlayerGame);
 
-        PlayButton.onClick.RemoveAllListeners();
-        PlayButton.onClick.AddListener(LoadScene);
+        PlayButton.interactable = false;
+        PlayButton.SetOnClickListener(LoadScene);
     }
 
     private void SetTwoPlayerGame() {
-        PlayerPrefs.SetString("multiplayer", "false");
-        PlayerPrefs.SetString("turnOrder", "red yellow");
+        setGamePreferences("false", "red yellow");
+        highlightSelectedMode(TwoPlayerPlay.transform);
     }
 
     private void SetThreePlayerGame() {
-        PlayerPrefs.SetString("multiplayer", "false");
-        PlayerPrefs.SetString("turnOrder", "red yellow blue");
+        setGamePreferences("false", "red yellow blue");
+        highlightSelectedMode(ThreePlayerPlay.transform);
     }
 
     private void SetFourPlayerGame() {
-        PlayerPrefs.SetString("multiplayer", "false");
-        PlayerPrefs.SetString("turnOrder", "red yellow blue green");
+        setGamePreferences("false", "red yellow blue green");
+        highlightSelectedMode(FourPlayerPlay.transform);
     }
 
     private void LoadScene() {
         SceneManager.LoadScene("LudoScene");
+    }
+    private void highlightSelectedMode(Transform buttonTransform) {
+        selectedModeHighlighter.gameObject.SetActive(true);
+        selectedModeHighlighter.DOMove(buttonTransform.transform.position, 0.2f);
+        PlayButton.interactable = true;
+    }
+    private static void setGamePreferences(string isMultiplayer, string turnOrder) {
+        PlayerPrefs.SetString("multiplayer", "false");
+        PlayerPrefs.SetString("turnOrder", "red yellow");
     }
 }
