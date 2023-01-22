@@ -9,6 +9,8 @@ public class BaseButton : Button {
     private bool clickAnimation = true;
 
     private Vector3 defaultScale;
+    private const float deltaScale = 0.09f;
+    private const float deltaDuration = 0.04f;
 
     private new void Awake() {
         base.Awake();
@@ -28,7 +30,7 @@ public class BaseButton : Button {
 
     private void DoClickAnimation() {
         this.interactable = false;
-        transform.DOScale(new Vector3(defaultScale.x - 0.03f, defaultScale.y - 0.03f, defaultScale.z - 0.03f), 0.04f).OnComplete(() => {
+        transform.DOScale(new Vector3(defaultScale.x - deltaScale, defaultScale.y - deltaScale, defaultScale.z - deltaScale), deltaDuration).OnComplete(() => {
             transform.DOScale(defaultScale, 0.03f).OnComplete(() => { this.interactable = true; });
         });
     }
