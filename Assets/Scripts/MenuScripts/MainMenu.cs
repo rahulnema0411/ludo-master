@@ -1,11 +1,36 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Zenject;
+using DG.Tweening;
+using Cysharp.Threading.Tasks;
 
 public class MainMenu : MonoBehaviour {
 
     public BaseButton tapToPlayButton;
     public GameSelectMenu gameMenu;
+    public Transform crossFade;
+
+    private GamePlayData gamePlayData;
+
+
+    private SignalBus _signalBus;
+
+    [Inject]
+    public void Construct(SignalBus signalBus) {
+        _signalBus = signalBus;
+    }
+
+    private void SubscribeToSignals() {
+        _signalBus.Subscribe<GamePlayData>(SetGamePlayData);
+        _signalBus.Subscribe<LoadSceneSignal>(LoadScene);
+    }
+
+    private void SetGamePlayData(GamePlayData data) {
+        gamePlayData = data;
+    }
 
     private void Awake() {
+        SubscribeToSignals();
         SetButtonDelegate();
     }
 
@@ -18,5 +43,21 @@ public class MainMenu : MonoBehaviour {
         tapToPlayButton.gameObject.SetActive(false);
     }
 
-    
+    private async void LoadScene() {
+
+        crossFade.DOMoveY(1024f, 0.5f);
+        await UniTask.Delay(500);
+        PlayerPrefs.SetString("multiplayer", gamePlayData.isMultiplayer.ToString());
+        PlayerPrefs.SetString("turnOrder", gamePlayData.turnOrder);
+        SceneManager.LoadScene("LudoScene");
+    }
+
+    private void UnSubscribeToSignals() {
+        _signalBus.TryUnsubscribe<GamePlayData>(SetGamePlayData);
+        _signalBus.TryUnsubscribe<LoadSceneSignal>(LoadScene);
+    }
+
+    private void OnDestroy() {
+        UnSubscribeToSignals();
+    }
 }

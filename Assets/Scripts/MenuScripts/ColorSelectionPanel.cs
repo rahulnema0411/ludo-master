@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Zenject;
+using DG.Tweening;
 
 public class ColorSelectionPanel : MonoBehaviour {
 
@@ -12,12 +11,17 @@ public class ColorSelectionPanel : MonoBehaviour {
     public Button Submit;
     public Image SelectedColorSprite;
     public TextMeshProUGUI SelectedColorText;
+    public Transform crossFade;
 
     private LudoBoard _ludoboard;
 
     [Inject]
     public void Construct(LudoBoard ludoBoard) {
         _ludoboard = ludoBoard;
+    }
+
+    private void Awake() {
+        crossFade.DOMoveY(-4000f, 0.5f);
     }
 
     private void OnEnable() {
