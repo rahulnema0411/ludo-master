@@ -70,7 +70,6 @@ public class Square : MonoBehaviour
         StartCoroutine(CheckAndKillPawn(signalData));
     }
 
-    // Start is called before the first frame update
     void Start() {
         position = transform.position;
         this.pawnsOnThisSquare = new List<Pawn>();

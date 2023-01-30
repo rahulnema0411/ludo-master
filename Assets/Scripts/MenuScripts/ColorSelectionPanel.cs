@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Zenject;
 using DG.Tweening;
+using Cysharp.Threading.Tasks;
 
 public class ColorSelectionPanel : MonoBehaviour {
 
@@ -21,6 +22,12 @@ public class ColorSelectionPanel : MonoBehaviour {
     }
 
     private void Awake() {
+        WaitAndDoCrossFade();
+    }
+
+    private async void WaitAndDoCrossFade() {
+        crossFade.gameObject.SetActive(true);
+        await UniTask.Delay(500);
         crossFade.DOMoveY(-4000f, 0.5f);
     }
 
