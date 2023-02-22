@@ -21,5 +21,7 @@ public class MenuSceneInstaller : MonoInstaller {
 
     private void DeclareSignals() {
         Container.DeclareSignal<LobbyJoinSignal>();
+        Container.DeclareSignal<GamePlayData>();
+        Container.DeclareSignal<LoadSceneSignal>();
     }
 }

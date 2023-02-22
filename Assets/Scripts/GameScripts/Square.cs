@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,11 +19,7 @@ public class Square : MonoBehaviour
         _ludoBoard = ludoBoard;
     }
 
-    private void Awake() {
-        SubcribeToSignals();
-    }
-
-    private void SubcribeToSignals() {
+    public void SubcribeToSignals() {
         _signalBus.Subscribe<MovePawnSignal>(UpdatePawnsOnThisSquare);
         _signalBus.Subscribe<TurnEndSignal>(CheckForPawnKills);
     }
@@ -70,7 +65,6 @@ public class Square : MonoBehaviour
         StartCoroutine(CheckAndKillPawn(signalData));
     }
 
-    // Start is called before the first frame update
     void Start() {
         position = transform.position;
         this.pawnsOnThisSquare = new List<Pawn>();
