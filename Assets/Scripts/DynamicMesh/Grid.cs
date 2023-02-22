@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Grid {
     private int columns;
@@ -11,6 +11,15 @@ public class Grid {
     private float gridSize;
     private BoxCollider2D[,] boxColliderArray;
     private List<Vector2> greenCells;
+
+    private SignalBus _signalBus;
+    private LudoBoard _ludoBoard;
+
+    [Inject]
+    public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
+        _signalBus = signalBus;
+        _ludoBoard = ludoBoard;
+    }
 
     public float CellSizeX { get => cellSizeX; set => cellSizeX = value; }
     public float CellSizeY { get => cellSizeY; set => cellSizeY = value; }
@@ -30,31 +39,13 @@ public class Grid {
     public void SetUpGrid() {
         for (int i = 0; i < gridArray.GetLength(0); i++) {
             for (int j = 0; j < gridArray.GetLength(1); j++) {
-                
                 boxColliderArray[i, j] = CreateColliderMesh(parentTransform, i, j, GetWorldPosition(i, j) + new Vector3(CellSizeX - gridSize, CellSizeY - gridSize) * 0.5f);
-                
-                // Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i, j + 1), Color.white, 100f);//vertical
-                // Debug.DrawLine(GetWorldPosition(i, j), GetWorldPosition(i + 1, j), Color.white, 100f);//horizontal
             }
         }
-        
-        // Debug.DrawLine(GetWorldPosition(0, rows), GetWorldPosition(columns, rows), Color.white, 100f);
-        // Debug.DrawLine(GetWorldPosition(columns, 0), GetWorldPosition(columns, rows), Color.white, 100f);
-        
-        // CreateGridBoundaries(parentTransform, new Vector3(-CellSizeX/2, gridSize/2), CellSizeX, gridSize);
-        // CreateGridBoundaries(parentTransform, new Vector3(gridSize + CellSizeX/2, gridSize/2), CellSizeX, gridSize);
-        
-        // CreateGridBoundaries(parentTransform, new Vector3(gridSize/2, -CellSizeY/2), gridSize, CellSizeY);
-        // CreateGridBoundaries(parentTransform, new Vector3(gridSize/2, gridSize + CellSizeY/2), gridSize, CellSizeY);
     }
 
     public Vector3 GetWorldPosition(int x, int y) {
         return new Vector3(x * CellSizeX, y * CellSizeY);
-    }
-
-    public void SetGridValue(int i, int j) {
-        gridArray[i, j] = 1;
-        greenCells.Add(new Vector2(i, j));
     }
 
 
@@ -75,31 +66,20 @@ public class Grid {
         return boxCollider;
     }
 
-    public BoxCollider2D CreateGridBoundaries(Transform parent = null, Vector3 localPosition = default, float sizeX = 1f, float sizeY = 1f, Color? color = null, int sortingOrder = 5000) {
-        GameObject gameObject = new GameObject("Boundary", typeof(BoxCollider2D));
-        gameObject.AddComponent(typeof(MeshFilter));
-        Transform transform = gameObject.transform;
-        transform.SetParent(parent, false);
-        transform.localPosition = localPosition;
-        transform.localScale = new Vector2(sizeX, sizeY);
-        MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
-        meshFilter.mesh = ImageHelper.instance.getQuadMesh();
-        BoxCollider2D boxCollider = gameObject.GetComponent<BoxCollider2D>();
-        boxCollider.isTrigger = true;
-        return boxCollider;
-    }
-
-    public Vector3 GetRandomGreenCellPosition() {
-        Vector2 random = greenCells[UnityEngine.Random.Range(0, greenCells.Count - 1)];
-        Vector3 position =  GetWorldPosition((int)random.x, (int)random.y) + new Vector3(CellSizeX / 2, CellSizeY / 2);
-        return position;
-    }
-
     public void HighlightPortion(int x1, int x2,  int y1, int y2) {
         for (int i = 0; i < gridArray.GetLength(0); i++) {
             for (int j = 0; j < gridArray.GetLength(1); j++) {
                 if((i >= x1 && i < x2) && j >= y1 && j < y2) {
-                    boxColliderArray[i, j].GetComponent<MeshRenderer>().material = ImageHelper.instance.GetWhiteMaterial();
+
+                    if(i == x1 || i == x2-1 || j == y1 || j == y2-1) {
+                        BoxCollider2D collider2D = boxColliderArray[i, j];
+
+                        collider2D.GetComponent<MeshRenderer>().material = ImageHelper.instance.GetWhiteMaterial();
+                        collider2D.gameObject.AddComponent(typeof(Square));
+                        collider2D.GetComponent<Square>().Construct(_signalBus, _ludoBoard);
+                        collider2D.GetComponent<Square>().SubcribeToSignals();
+                    } 
+
                 } 
             }
         }

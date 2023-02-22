@@ -15,7 +15,6 @@ public class BaseButton : Button {
     private new void Awake() {
         base.Awake();
         defaultScale = transform.localScale;
-        //onClick.RemoveAllListeners();
         SetAnimationOnClick();
     }
 
