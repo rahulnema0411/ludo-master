@@ -211,7 +211,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4354142555258092197}
-  - component: {fileID: 2265132739148170865}
   m_Layer: 0
   m_Name: MainPathWay
   m_TagString: Untagged
@@ -234,18 +233,6 @@ Transform:
   m_Father: {fileID: 1133233997755345764}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2265132739148170865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041837684809051464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0feb4bac6e1395c4c9bb17864da97025, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6633416743874554284
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,9 +441,33 @@ PrefabInstance:
       value: BlueStart
       objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: FinalPath
       value: 
       objectReference: {fileID: 8859067915036329722}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: RedFinalPath
       value: 
@@ -2183,9 +2194,29 @@ PrefabInstance:
       value: GreenStart
       objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: FinalPath
       value: 
       objectReference: {fileID: 7969500915791002404}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.y
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: RedFinalPath
       value: 
@@ -3788,9 +3819,33 @@ PrefabInstance:
       value: RedStart
       objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: FinalPath
       value: 
       objectReference: {fileID: 1427424099227674948}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: RedFinalPath
       value: 
@@ -6759,9 +6814,33 @@ PrefabInstance:
       value: YellowStart
       objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: endPos.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: FinalPath
       value: 
       objectReference: {fileID: 7900051549925003212}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: nextPos.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
+      propertyPath: startPos.y
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3262644081360613082, guid: dabcdeba206fc064aae4de34513f12eb, type: 3}
       propertyPath: RedFinalPath
       value: 

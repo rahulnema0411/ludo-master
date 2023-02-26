@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public string start;
     [SerializeField] public string end;
     [SerializeField] public Animator backGroundAnimator;
+    [SerializeField] public Vector2 startPos, nextPos, endPos;
 
     private int roll;
 
@@ -29,7 +30,8 @@ public class Player : MonoBehaviour {
 
     public void InitializePlayer() {
         SetPawnValue();
-        SetPath();
+        //SetPath();
+        InitializePath(start:((int)startPos.x, (int)startPos.y), next: ((int)nextPos.x, (int)nextPos.y), end:((int)endPos.x, (int)endPos.y));
         SubscribeSignals();
     }
 
@@ -128,6 +130,28 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private void InitializePath((int row, int col) start, (int row, int col) next, (int row, int col) end) {
+        path = new List<Square>();
+        path.Add(_ludoBoard.Grid.GetCell(start.row, start.col));
+        path.Add(_ludoBoard.Grid.GetCell(next.row, next.col));
+
+        int i = next.row, j = next.col;
+
+
+        while(path.Count < 52) {
+            var nextCell = GetNextCell(i, j);
+            Square nextCellObj = nextCell.Item1;
+            if(nextCellObj != null) {
+                path.Add(nextCellObj);
+                i = nextCell.Item2;
+                j = nextCell.Item3;
+                if(i == end.row && j == end.col) {
+                    break;
+                }
+            }
+        }
+    }
+
     private bool isEveryPawnHome() {
         foreach (Pawn pawn in pawns) {
             if(pawn.currentPosition != -1) {
@@ -145,5 +169,70 @@ public class Player : MonoBehaviour {
             }
         }
         return count == 0;
+    }
+
+
+    internal (Square, int , int) GetNextCell(int row, int col) {
+        
+        Square square;
+        int nextCellI, nextCellJ;
+        int i = 0, j = 0;
+
+        //i-1, j -> i+1, j
+        j = col;
+        for(i = row-1; i <= row+1; i++) {
+
+            (square, nextCellI, nextCellJ) = GetCell(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            } 
+
+        }
+
+        //i, j-1 -> i, j+1
+        i = row;
+        for(j = col-1; j <= col+1; j++) {
+
+            (square, nextCellI, nextCellJ) = GetCell(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            } 
+
+        }
+
+        //i-1, j-1 -> i-1, j+1
+        i = row-1;
+        for(j = col-1; j <= col+1; j++) {
+            
+            (square, nextCellI, nextCellJ) = GetCell(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            }
+        }
+
+        //i+1, j-1 -> i+1, j+1
+        i = row+1;
+        for(j = col-1; j <= col+1; j++) {
+            
+            (square, nextCellI, nextCellJ) = GetCell(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            }
+        }
+
+        return (null, -1, -1);
+    }
+
+    internal (Square, int , int) GetCell(int i, int j) {
+        Square square;
+
+        if(i >= 0 && i < _ludoBoard.Grid.CellArray.GetLength(0) && j >= 0 && j < _ludoBoard.Grid.CellArray.GetLength(1)) {
+            if(_ludoBoard.Grid.GetCell(i, j).IsPath) {
+                square = _ludoBoard.Grid.GetCell(i, j);
+                return (square, i, j);
+            }
+        }
+
+        return (null, -1, -1);
     }
 }

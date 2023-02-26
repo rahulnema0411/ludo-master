@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,8 +18,11 @@ public class LudoBoard : MonoBehaviour {
     public string userColor;
 
     private int turnIndex;
+    private CustomGrid<Square> grid;
 
     private SignalBus _signalBus;
+
+    public CustomGrid<Square> Grid { get => grid; set => grid = value; }
 
     [Inject]
     public void Construct(SignalBus signalBus) {
@@ -29,7 +31,8 @@ public class LudoBoard : MonoBehaviour {
 
     public void InitializeBoard() {
         GetPlayerPrefsData();
-        InitializeMainPath();
+        InitiateGrid();
+        //InitializeMainPath();
         InitializePlayers();
         SubscribeToSignals();
         turnIndex = 0;
@@ -104,4 +107,36 @@ public class LudoBoard : MonoBehaviour {
             MainPathway.Add(square);
         }
     }
+
+    private void InitiateGrid() {
+        grid = new CustomGrid<Square>(15, 15, 4.0f, MainPath);
+        HighlightPortion(6, 9, 0, 6);
+        HighlightPortion(0, 6, 6, 9);
+        HighlightPortion(9, 15, 6, 9);
+        HighlightPortion(6, 9, 9, 15);
+    }
+
+    public void HighlightPortion(int x1, int x2,  int y1, int y2) {
+
+        for (int i = 0; i < grid.CellArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.CellArray.GetLength(1); j++) {
+                Square cell = grid.CellArray[i, j].GetComponent<Square>();
+                if(cell != null) {
+                    if(i == 5 && j == 7 || i == 7 && j == 5 || i == 9 && j == 7 || i == 7 && j == 9) {
+                        continue;
+                    }
+                    if((i >= x1 && i < x2) && j >= y1 && j < y2) {
+                        if(i == x1 || i == x2-1 || j == y1 || j == y2-1) {
+                            cell.Construct(_signalBus, this);
+                            cell.SubcribeToSignals();
+                            cell.GetComponent<MeshRenderer>().material = ImageHelper.instance.GetWhiteMaterial();
+                            cell.IsPath = true;
+                        }
+                    }
+                } else {
+                    Debug.LogError("Square componenent attached to the cell object in : " + i + ", " + j);
+                }
+            }
+        }
+    } 
 }

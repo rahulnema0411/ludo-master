@@ -6,7 +6,7 @@ public class ImageHelper : MonoBehaviour {
     public Mesh mesh; 
     public Sprite square;
 
-    [SerializeReference] private Material blackMaterial, whiteMaterial;
+    [SerializeReference] private Material blackMaterial, whiteMaterial, redMaterial;
 
     private void Awake() {
         instance = this;
@@ -26,5 +26,9 @@ public class ImageHelper : MonoBehaviour {
 
     public Material GetWhiteMaterial() {
         return whiteMaterial;
+    }
+
+    public Material GetRedMaterial() {
+        return redMaterial;
     }
 }

@@ -58,5 +58,7 @@ public class CustomGrid<T> {
         return gameObject.GetComponent<T>();
     }
 
-    
+    public T GetCell(int row, int col) {
+        return CellArray[row, col];
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class TestMesh : MonoBehaviour
 {
     [SerializeReference] private MeshFilter meshFilter;
     

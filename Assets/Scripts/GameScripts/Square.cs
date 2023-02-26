@@ -7,11 +7,15 @@ public class Square : MonoBehaviour
 {
     public Vector3 position;
     public string label = "";
+    [SerializeField]
+    private bool isPath = false;
     public int id = 0;
     public List<Pawn> pawnsOnThisSquare;
 
     private SignalBus _signalBus;
     private LudoBoard _ludoBoard;
+
+    public bool IsPath { get => isPath; set => isPath = value; }
 
     [Inject]
     public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
