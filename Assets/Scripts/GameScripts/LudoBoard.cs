@@ -122,15 +122,18 @@ public class LudoBoard : MonoBehaviour {
             for (int j = 0; j < grid.CellArray.GetLength(1); j++) {
                 Square cell = grid.CellArray[i, j].GetComponent<Square>();
                 if(cell != null) {
+                    cell.GridPosition = new Vector2Int(i, j);
                     if(i == 5 && j == 7 || i == 7 && j == 5 || i == 9 && j == 7 || i == 7 && j == 9) {
+                        cell.IsFinalPath = true;
                         continue;
                     }
                     if((i >= x1 && i < x2) && j >= y1 && j < y2) {
+                        cell.Construct(_signalBus, this);
+                        cell.SubcribeToSignals();
                         if(i == x1 || i == x2-1 || j == y1 || j == y2-1) {
-                            cell.Construct(_signalBus, this);
-                            cell.SubcribeToSignals();
-                            cell.GetComponent<MeshRenderer>().material = ImageHelper.instance.GetWhiteMaterial();
                             cell.IsPath = true;
+                        } else {
+                            cell.IsFinalPath = true;
                         }
                     }
                 } else {

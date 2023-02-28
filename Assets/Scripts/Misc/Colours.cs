@@ -1,0 +1,6 @@
+public enum Colours {
+    RED, PASTELRED,
+    BLUE, PASTELBLUE,
+    YELLOW, PASTELYELLOW,
+    GREEN, PASTELGREEN
+}

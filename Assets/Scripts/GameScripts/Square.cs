@@ -6,16 +6,28 @@ using Zenject;
 public class Square : MonoBehaviour
 {
     public Vector3 position;
+    [SerializeField] private Vector2Int gridPosition;
     public string label = "";
-    [SerializeField]
-    private bool isPath = false;
+    [SerializeField] private bool isPath = false;
+    [SerializeField] private bool isFinalPath = false;
     public int id = 0;
     public List<Pawn> pawnsOnThisSquare;
 
     private SignalBus _signalBus;
     private LudoBoard _ludoBoard;
 
-    public bool IsPath { get => isPath; set => isPath = value; }
+    public bool IsPath { get => isPath; set { 
+                isFinalPath = !value;
+                isPath = value;
+            } 
+        }
+    public bool IsFinalPath { get => isFinalPath; set { 
+                isFinalPath = value;
+                isPath = !value;
+            } 
+        }
+
+    public Vector2Int GridPosition { get => gridPosition; set => gridPosition = value; }
 
     [Inject]
     public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
