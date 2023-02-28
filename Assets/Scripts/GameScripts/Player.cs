@@ -156,21 +156,19 @@ public class Player : MonoBehaviour {
 
         AddCellToPath(_ludoBoard.Grid.GetCell(finalPathStartPosition.x, finalPathStartPosition.y), color, path);
     
-        // int i = finalPathStartPosition.x, j = finalPathStartPosition.y;
+        int i = finalPathStartPosition.x, j = finalPathStartPosition.y;
 
-        // while(path.Count < 57) {
-        //     var nextCell = GetFinalPathNextCell(i, j);
-        //     Square nextCellObj = nextCell.Item1;
-        //     if(nextCellObj != null) {
-        //         nextCellObj.GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
-        //         path.Add(nextCellObj);
-        //         i = nextCell.Item2;
-        //         j = nextCell.Item3;
-        //         if(i == homePosition.x && j == homePosition.y) {
-        //             break;
-        //         }
-        //     }
-        // }
+        while(path.Count < 56) {
+            var nextCell = GetFinalPathNextCell(i, j);
+            if(nextCell.Item1 != null) {
+                AddCellToPath(nextCell.Item1, color, path);
+                i = nextCell.Item2;
+                j = nextCell.Item3;
+                if(i == endPosition.x && j == endPosition.y) {
+                    break;
+                }
+            }
+        }
 
         AddCellToPath(_ludoBoard.Grid.GetCell(homePosition.x, homePosition.y), color, path);
     }
@@ -290,6 +288,26 @@ public class Player : MonoBehaviour {
                 return (square, nextCellI, nextCellJ);
             } 
 
+        }
+
+        //i-1, j-1 -> i-1, j+1
+        i = row-1;
+        for(j = col-1; j <= col+1; j++) {
+            
+            (square, nextCellI, nextCellJ) = GetCellForFinalPath(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            }
+        }
+
+        //i+1, j-1 -> i+1, j+1
+        i = row+1;
+        for(j = col-1; j <= col+1; j++) {
+            
+            (square, nextCellI, nextCellJ) = GetCellForFinalPath(i, j);
+            if(square != null && !path.Contains(square)) {
+                return (square, nextCellI, nextCellJ);
+            }
         }
 
         return (null, -1, -1);
