@@ -5,6 +5,9 @@ using UnityEngine;
 using Zenject;
 
 public class LudoBoard : MonoBehaviour {
+    [Header("Game Data")]
+    public LudoData ludoData;
+
     [Header("Main Path Way")]
     [SerializeField] public Transform MainPath;
     [SerializeReference] public List<Square> MainPathway;
@@ -38,7 +41,7 @@ public class LudoBoard : MonoBehaviour {
     }
 
     public void ActivatePlayers() {
-        string turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        string turnOrder = ludoData.turnOrder;
         TurnOrder = turnOrder.Split(' ');
         UnassignedColors = TurnOrder.ToList();
         foreach(Player player in players) {
@@ -64,8 +67,8 @@ public class LudoBoard : MonoBehaviour {
     }
 
     private void GetPlayerPrefsData() {
-        host = PlayerPrefs.GetString("host", "no") == "yes" ? true : false;
-        isMultiplayer = PlayerPrefs.GetString("multiplayer", "false") == "true" ? true : false;
+        host = ludoData.isHost;
+        isMultiplayer = ludoData.isMultiplayer;
     }
 
     private void SubscribeToSignals() {
@@ -102,13 +105,6 @@ public class LudoBoard : MonoBehaviour {
         }
     }
 
-    private void InitializeMainPath() {
-        for (int i = 0; i < MainPath.childCount; i++) {
-            Square square = MainPath.GetChild(i).GetComponent<Square>();
-            square.SetID(i);
-            MainPathway.Add(square);
-        }
-    }
 
     private void InitiateGrid() {
         grid = new CustomGrid<Square>(15, 15, 4.0f, MainPath);

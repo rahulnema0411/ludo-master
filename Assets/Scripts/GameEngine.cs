@@ -5,7 +5,6 @@ using TMPro;
 public class GameEngine : MonoBehaviour {
 
     public LudoBoard ludoBoard;
-    public ColorSelectionPanel selectionPanel;
     public TextMeshProUGUI userColorText;
 
     private bool isMultiplayer, host;

@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0010dbc5b64b3459484f35c701963f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
   MainPath: {fileID: 4354142555258092197}
   MainPathway: []
   players:

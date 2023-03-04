@@ -33,6 +33,7 @@ public class Square : MonoBehaviour
     public void Construct(SignalBus signalBus, LudoBoard ludoBoard) {
         _signalBus = signalBus;
         _ludoBoard = ludoBoard;
+        SetID();
     }
 
     public void SubcribeToSignals() {
@@ -86,8 +87,8 @@ public class Square : MonoBehaviour
         this.pawnsOnThisSquare = new List<Pawn>();
     }
 
-    public void SetID(int id) {
-        this.id = id;
+    public void SetID() {
+        this.id = gameObject.GetInstanceID();
     }
 
     private IEnumerator CheckAndKillPawn(TurnEndSignal signalData) {

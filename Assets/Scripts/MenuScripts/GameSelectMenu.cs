@@ -9,6 +9,7 @@ public class GameSelectMenu : MonoBehaviour {
     public Slider slider;
     public BaseButton button1P, button2P, button3P, button4P, startGameButton;
     public TextMeshProUGUI playerSelectedText;
+    public LudoData ludoData;
 
     private static readonly float[] sliderValues = { 0.151f, 0.435f, 0.72f, 1f };
     private static readonly string[] playerSelectedValues = { "Single Player Game", "Two Players Game", "Three Players Game", "Four Players Game" };
@@ -30,23 +31,33 @@ public class GameSelectMenu : MonoBehaviour {
         button1P.AddOnClickListener(delegate() {
             slider.DOValue(sliderValues[0], sliderDOMoveDuration);
             playerSelectedText.text = playerSelectedValues[0];
+            SetLudoData("red");
         });
         button2P.AddOnClickListener(delegate () {
             slider.DOValue(sliderValues[1], sliderDOMoveDuration);
             playerSelectedText.text = playerSelectedValues[1];
+            SetLudoData("red green");
         });
         button3P.AddOnClickListener(delegate () {
             slider.DOValue(sliderValues[2], sliderDOMoveDuration);
             playerSelectedText.text = playerSelectedValues[2];
+            SetLudoData("red green yellow");
         });
         button4P.AddOnClickListener(delegate () {
             slider.DOValue(sliderValues[3], sliderDOMoveDuration);
             playerSelectedText.text = playerSelectedValues[3];
+            SetLudoData("red green yellow blue");
         });
 
         startGameButton.AddOnClickListener(delegate() {
             _signalBus.Fire(new LoadSceneSignal{ });
         });
+    }
+
+    private void SetLudoData(string turnOrder) {
+        ludoData.turnOrder = turnOrder;
+        ludoData.isMultiplayer = false;
+        ludoData.isHost = false;
     }
 
 }

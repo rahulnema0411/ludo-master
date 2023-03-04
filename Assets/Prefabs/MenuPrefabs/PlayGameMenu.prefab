@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.39215687, g: 0.6313726, b: 0.8784314, a: 1}
+  m_Color: {r: 0.4156863, g: 0.8235295, b: 0.31764707, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93333334, g: 0.84705883, b: 0.36862746, a: 1}
+  m_Color: {r: 0.3921569, g: 0.6313726, b: 0.87843144, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1828,6 +1828,7 @@ MonoBehaviour:
   button4P: {fileID: 2125236377504335296}
   startGameButton: {fileID: 4056017459237882911}
   playerSelectedText: {fileID: 2838011592657259610}
+  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
 --- !u!1 &6490355091876531235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,7 +2255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.42352942, g: 0.8156863, b: 0.32941177, a: 1}
+  m_Color: {r: 0.9294118, g: 0.8470589, b: 0.38823533, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
