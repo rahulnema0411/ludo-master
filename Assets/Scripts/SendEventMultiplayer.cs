@@ -61,7 +61,7 @@ public class SendEventMultiplayer : MonoBehaviour {
     
     public void SendGameDataSignal() {
         GameData gameData = new GameData();
-        gameData.turnOrder = PlayerPrefs.GetString("turnOrder", "red yellow");
+        gameData.turnOrder = PlayerPrefs.GetString("turnOrder", "red blue");
         gameData.userColor = _ludoBoard.AssignUserColor();
         RaiseEvent(EventCode.GameDataSignal, new object[] { JsonConvert.SerializeObject(gameData).ToString() }, false);
     }

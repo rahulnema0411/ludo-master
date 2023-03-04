@@ -35,7 +35,6 @@ public class ImageHelper : MonoBehaviour {
     }
 
     public Material GetMaterialOfColor(string color) {
-        
         switch(color.ToUpper()) {
             case "RED" :
                 return redMaterial;

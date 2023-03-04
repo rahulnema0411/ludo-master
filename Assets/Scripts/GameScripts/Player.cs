@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -30,7 +29,6 @@ public class Player : MonoBehaviour {
 
     public void InitializePlayer() {
         SetPawnValue();
-        //SetPath();
         InitializePath();
         InitializeFinalPath();
         SubscribeSignals();
@@ -117,24 +115,10 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void SetPath() {
-        int startIndex = _ludoBoard.MainPathway.FindIndex(x => x.label == start);
-        int endIndex = _ludoBoard.MainPathway.FindIndex(x => x.label == end);
-        for (int i = startIndex; i < _ludoBoard.MainPathway.Count; i++) {
-            path.Add(_ludoBoard.MainPathway[i]);
-        }
-        for (int i = 0; i <= endIndex; i++) {
-            path.Add(_ludoBoard.MainPathway[i]);
-        }
-        for(int i = 0;i < FinalPath.childCount; i++) {
-            path.Add(FinalPath.GetChild(i).GetComponent<Square>());
-        }
-    }
-
     private void InitializePath() {
         path = new List<Square>();
 
-        AddCellToPath(_ludoBoard.Grid.GetCell(startPosition.x, startPosition.y), "white", path);
+        AddCellToPath(_ludoBoard.Grid.GetCell(startPosition.x, startPosition.y), color, path);
         AddCellToPath(_ludoBoard.Grid.GetCell(nextPosition.x, nextPosition.y), "white", path);
 
         int i = nextPosition.x, j = nextPosition.y;
@@ -149,6 +133,16 @@ public class Player : MonoBehaviour {
                     break;
                 }
             }
+        }
+    }
+
+    private string GetCellColor(int count) {
+        if(count == 7) {
+            Debug.LogError(count);
+            Debug.LogError(color);
+            return color;
+        } else {
+            return "white";
         }
     }
 
@@ -171,6 +165,11 @@ public class Player : MonoBehaviour {
         }
 
         AddCellToPath(_ludoBoard.Grid.GetCell(homePosition.x, homePosition.y), color, path);
+    }
+
+    public void SetStarCells() {
+        path[0].GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
+        path[8].GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
     }
 
     private void AddCellToPath(Square cell, string color, List<Square> path) {

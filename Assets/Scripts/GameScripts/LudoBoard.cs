@@ -32,7 +32,6 @@ public class LudoBoard : MonoBehaviour {
     public void InitializeBoard() {
         GetPlayerPrefsData();
         InitiateGrid();
-        //InitializeMainPath();
         InitializePlayers();
         SubscribeToSignals();
         turnIndex = 0;
@@ -97,6 +96,9 @@ public class LudoBoard : MonoBehaviour {
     private void InitializePlayers() {
         foreach (Player player in players) {
             player.InitializePlayer();
+        }
+        foreach (Player player in players) {
+            player.SetStarCells();
         }
     }
 
