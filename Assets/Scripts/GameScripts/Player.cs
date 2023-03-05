@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public Dice dice;
     [SerializeField] public DiceResult diceResult;
     [SerializeField] public string color;
+    [SerializeField] public Color playerColor;
     [SerializeField] public string start;
     [SerializeField] public string end;
     [SerializeField] public Animator backGroundAnimator;
@@ -118,15 +119,15 @@ public class Player : MonoBehaviour {
     private void InitializePath() {
         path = new List<Square>();
 
-        AddCellToPath(_ludoBoard.Grid.GetCell(startPosition.x, startPosition.y), color, path);
-        AddCellToPath(_ludoBoard.Grid.GetCell(nextPosition.x, nextPosition.y), "white", path);
+        AddCellToPath(_ludoBoard.Grid.GetCell(startPosition.x, startPosition.y), playerColor, path);
+        AddCellToPath(_ludoBoard.Grid.GetCell(nextPosition.x, nextPosition.y), Color.white, path);
 
         int i = nextPosition.x, j = nextPosition.y;
 
         while(path.Count < 52) {
             var nextCell = GetNextCell(i, j);
             if(nextCell.Item1 != null) {
-                AddCellToPath(nextCell.Item1, "white", path);
+                AddCellToPath(nextCell.Item1, Color.white, path);
                 i = nextCell.Item2;
                 j = nextCell.Item3;
                 if(i == endPosition.x && j == endPosition.y) {
@@ -136,26 +137,16 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private string GetCellColor(int count) {
-        if(count == 7) {
-            Debug.LogError(count);
-            Debug.LogError(color);
-            return color;
-        } else {
-            return "white";
-        }
-    }
-
     private void InitializeFinalPath() {
 
-        AddCellToPath(_ludoBoard.Grid.GetCell(finalPathStartPosition.x, finalPathStartPosition.y), color, path);
+        AddCellToPath(_ludoBoard.Grid.GetCell(finalPathStartPosition.x, finalPathStartPosition.y), playerColor, path);
     
         int i = finalPathStartPosition.x, j = finalPathStartPosition.y;
 
         while(path.Count < 56) {
             var nextCell = GetFinalPathNextCell(i, j);
             if(nextCell.Item1 != null) {
-                AddCellToPath(nextCell.Item1, color, path);
+                AddCellToPath(nextCell.Item1, playerColor, path);
                 i = nextCell.Item2;
                 j = nextCell.Item3;
                 if(i == endPosition.x && j == endPosition.y) {
@@ -164,16 +155,16 @@ public class Player : MonoBehaviour {
             }
         }
 
-        AddCellToPath(_ludoBoard.Grid.GetCell(homePosition.x, homePosition.y), color, path);
+        AddCellToPath(_ludoBoard.Grid.GetCell(homePosition.x, homePosition.y), playerColor, path);
     }
 
     public void SetStarCells() {
-        path[0].GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
-        path[8].GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
+        path[0].GetComponent<SpriteRenderer>().color = playerColor;
+        path[8].GetComponent<SpriteRenderer>().color = playerColor;
     }
 
-    private void AddCellToPath(Square cell, string color, List<Square> path) {
-        cell.GetComponent<MeshRenderer>().material = ImageHelper.instance.GetMaterialOfColor(color);
+    private void AddCellToPath(Square cell, Color color, List<Square> path) {
+        cell.GetComponent<SpriteRenderer>().color = color;
         path.Add(cell);
     }
 

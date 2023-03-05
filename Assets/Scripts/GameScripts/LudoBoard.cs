@@ -37,6 +37,7 @@ public class LudoBoard : MonoBehaviour {
         InitiateGrid();
         InitializePlayers();
         SubscribeToSignals();
+        ColorHomes();
         turnIndex = 0;
     }
 
@@ -111,7 +112,14 @@ public class LudoBoard : MonoBehaviour {
         HighlightPortion(6, 9, 0, 6);
         HighlightPortion(0, 6, 6, 9);
         HighlightPortion(9, 15, 6, 9);
-        HighlightPortion(6, 9, 9, 15);
+        HighlightPortion(6, 9, 9, 15);        
+    }
+
+    private void ColorHomes() {
+        ColorPortion(0, 0, 6, 6, ImageHelper.instance.RedPlayerColor);
+        ColorPortion(0, 9, 6, 15, ImageHelper.instance.GreenPlayerColor);
+        ColorPortion(9, 9, 15, 15, ImageHelper.instance.YellowPlayerColor);
+        ColorPortion(9, 0, 15, 6, ImageHelper.instance.BluePlayerColor);
     }
 
     public void HighlightPortion(int x1, int x2,  int y1, int y2) {
@@ -122,17 +130,34 @@ public class LudoBoard : MonoBehaviour {
                 if(cell != null) {
                     cell.GridPosition = new Vector2Int(i, j);
                     if(i == 5 && j == 7 || i == 7 && j == 5 || i == 9 && j == 7 || i == 7 && j == 9) {
+                        cell.gameObject.GetComponent<SpriteRenderer>().sprite = ImageHelper.instance.GetCellSprite();
                         cell.IsFinalPath = true;
                         continue;
                     }
                     if((i >= x1 && i < x2) && j >= y1 && j < y2) {
                         cell.Construct(_signalBus, this);
                         cell.SubcribeToSignals();
+                        cell.gameObject.GetComponent<SpriteRenderer>().sprite = ImageHelper.instance.GetCellSprite();
                         if(i == x1 || i == x2-1 || j == y1 || j == y2-1) {
                             cell.IsPath = true;
                         } else {
                             cell.IsFinalPath = true;
                         }
+                    }
+                } else {
+                    Debug.LogError("Square componenent attached to the cell object in : " + i + ", " + j);
+                }
+            }
+        }
+    } 
+
+    public void ColorPortion(int x1, int y1,  int x2, int y2, Color color) {
+        for (int i = 0; i < grid.CellArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.CellArray.GetLength(1); j++) {
+                Square cell = grid.CellArray[i, j].GetComponent<Square>();
+                if(cell != null) {
+                    if((i >= x1 && i < x2) && j >= y1 && j < y2) {
+                        cell.gameObject.GetComponent<SpriteRenderer>().color = color;
                     }
                 } else {
                     Debug.LogError("Square componenent attached to the cell object in : " + i + ", " + j);
