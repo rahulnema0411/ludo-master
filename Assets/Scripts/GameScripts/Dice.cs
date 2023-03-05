@@ -1,14 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using Zenject;
-using Photon.Realtime;
 
 public class Dice : MonoBehaviour {
     
     [SerializeField] public Sprite[] diceFaces;
-    [SerializeField] public SpriteRenderer dice;
+    [SerializeField] public SpriteRenderer dice, shadow;
     [SerializeField] public BoxCollider2D diceCollider;
     [SerializeField] public GameObject arrow;
 
@@ -40,18 +37,18 @@ public class Dice : MonoBehaviour {
         if(_ludoBoard.isMultiplayer) {
             if (signal.color.ToLower().Equals(diceID.ToLower()) && signal.color.ToLower().Equals(_ludoBoard.userColor)) {
                 diceCollider.enabled = true;
-                gameObject.SetActive(true);
+                if(gameObject.activeInHierarchy) StartCoroutine(ShadownFadeIn());
             } else {
                 diceCollider.enabled = false;
-                gameObject.SetActive(false);
+                if(gameObject.activeInHierarchy) StartCoroutine(ShadownFadeOut());
             }
         } else {
             if(signal.color.ToLower().Equals(diceID.ToLower())) {
                 diceCollider.enabled = true;
-                gameObject.SetActive(true);
+                if(gameObject.activeInHierarchy) StartCoroutine(ShadownFadeIn());
             } else {
                 diceCollider.enabled = false;
-                gameObject.SetActive(false);
+                if(gameObject.activeInHierarchy) StartCoroutine(ShadownFadeOut());
             }
         }
     }
@@ -94,5 +91,22 @@ public class Dice : MonoBehaviour {
             roll = roll + 1,
             color = diceID
         });
+    }
+
+    private IEnumerator ShadownFadeOut() {
+        while(shadow.color.a > 0f) {
+            Color color = shadow.color;
+            color.a = color.a - 0.02f;
+            shadow.color = color;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    private IEnumerator ShadownFadeIn() {
+        while(shadow.color.a < 0.3f) {
+            Color color = shadow.color;
+            color.a = color.a + 0.02f;
+            shadow.color = color;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }
