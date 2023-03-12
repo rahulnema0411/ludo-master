@@ -8,7 +8,7 @@ public class ImageHelper : MonoBehaviour {
     [SerializeReference] private Material blackMaterial, whiteMaterial, 
     redMaterial, greenMaterial, blueMaterial, yellowMaterial, 
     pastelRedMaterial, pastelBlueMaterial, pastelYellowMaterial, pastelGreenMaterial;
-    [SerializeReference] private Sprite cell, cellWithoutBorder;
+    [SerializeReference] private Sprite cell, cellWithoutBorder, homeCell;
     [SerializeReference] private Color redPlayerColor, bluePlayerColor, greenPlayerColor, yellowPlayerColor;
 
     public Color RedPlayerColor { get => redPlayerColor; set => redPlayerColor = value; }
@@ -18,6 +18,7 @@ public class ImageHelper : MonoBehaviour {
     public Sprite Square { get => square; set => square = value; }
     public Mesh Mesh { get => mesh; set => mesh = value; }
     public Material WhiteMaterial { get => whiteMaterial; set => whiteMaterial = value; }
+    public Sprite HomeCell { get => homeCell; set => homeCell = value; }
 
     private void Awake() {
         instance = this;

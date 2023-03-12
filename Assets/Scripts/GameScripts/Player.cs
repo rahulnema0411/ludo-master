@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public Vector2Int startPosition, nextPosition, endPosition, finalPathStartPosition, homePosition;
 
     private int roll;
-    private int points;
+    public int points;
 
     private LudoBoard _ludoBoard;
     private SignalBus _signalBus;
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
     }
 
     public void InitializePlayer() {
+        points = 0;
         SetPawnValue();
         InitializePath();
         InitializeFinalPath();
@@ -49,7 +50,8 @@ public class Player : MonoBehaviour {
         _signalBus.Subscribe<DiceResultSignal>(StoreDiceResult);
         _signalBus.Subscribe<SelectedPawnSignal>(MovePawn);
         _signalBus.Subscribe<PlayerTurnSignal>(AnimateHome);
-        _signalBus.Subscribe<TurnEndSignal>(StopHomeAnimation);
+        _signalBus.Subscribe<TurnEndSignal>(HandleTurnEndSignal);
+        _signalBus.Subscribe<UpdatePlayerPoints>(UpdatePoints);
     }
 
     private void AnimateHome(PlayerTurnSignal signal) {
@@ -57,8 +59,28 @@ public class Player : MonoBehaviour {
             backGroundAnimator.SetBool("Shine", true);
         }
     }
-    
-    private void StopHomeAnimation(TurnEndSignal signal) {
+
+    private void HandleTurnEndSignal(TurnEndSignal signal) {
+        StopHomeAnimation();
+        UpdatePoints(new UpdatePlayerPoints {
+            color = signal.color,
+            points = signal.previousTurnRoll
+        });
+    }
+
+    private void UpdatePoints(UpdatePlayerPoints data) {
+        if(data.color.ToLower().Equals(color.ToLower())) {
+            points += data.points;
+        }
+    }
+
+    private void UpdatePoints(TurnEndSignal signal) {
+        if(signal.color.ToLower().Equals(color.ToLower())) {
+            points += signal.previousTurnRoll;
+        }
+    }
+
+    private void StopHomeAnimation() {
         backGroundAnimator.SetBool("Shine", false);
     }
 

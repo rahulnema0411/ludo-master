@@ -58,6 +58,7 @@ MonoBehaviour:
   pastelGreenMaterial: {fileID: 2100000, guid: df9f9e6ae90e5a142b482832889691f6, type: 2}
   cell: {fileID: 21300000, guid: e2f9846ff10f5a447a5b65287c27648f, type: 3}
   cellWithoutBorder: {fileID: 21300000, guid: 8c5700552281a014da1a8218254237c6, type: 3}
+  homeCell: {fileID: 21300000, guid: d002df852587b1542aadf87715eb82ae, type: 3}
   redPlayerColor: {r: 0.9372549, g: 0.24313726, b: 0.3647059, a: 1}
   bluePlayerColor: {r: 0.39215687, g: 0.6313726, b: 0.8784314, a: 1}
   greenPlayerColor: {r: 0.40784314, g: 0.827451, b: 0.34901962, a: 1}

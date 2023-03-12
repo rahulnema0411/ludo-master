@@ -116,11 +116,20 @@ public class LudoBoard : MonoBehaviour {
         HighlightPortion(6, 9, 9, 15);        
     }
 
-    private void ColorHomes() {
+    private void ColorHomes()
+    {
         ColorPortion(0, 0, 6, 6, ImageHelper.instance.RedPlayerColor);
         ColorPortion(0, 9, 6, 15, ImageHelper.instance.GreenPlayerColor);
         ColorPortion(9, 9, 15, 15, ImageHelper.instance.YellowPlayerColor);
         ColorPortion(9, 0, 15, 6, ImageHelper.instance.BluePlayerColor);
+        SetHomeCell();
+    }
+
+    private void SetHomeCell()
+    {
+        grid.CellArray[7, 7].GetComponent<SpriteRenderer>().sprite = ImageHelper.instance.HomeCell;
+        grid.CellArray[7, 7].GetComponent<SpriteRenderer>().sortingOrder = 1;
+        grid.CellArray[7, 7].transform.localRotation = UnityEngine.Quaternion.Euler(0f, 0f, 90f);
     }
 
     public void HighlightPortion(int x1, int x2,  int y1, int y2) {

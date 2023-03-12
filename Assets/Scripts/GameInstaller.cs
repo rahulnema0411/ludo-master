@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 public class GameInstaller : MonoInstaller {
@@ -24,6 +20,7 @@ public class GameInstaller : MonoInstaller {
         Container.DeclareSignal<PlayerTurnSignal>();
         Container.DeclareSignal<TurnEndSignal>();
         Container.DeclareSignal<KillPawnSignal>();
+        Container.DeclareSignal<UpdatePlayerPoints>();
     }
 
     private void BindIntances() {

@@ -101,3 +101,9 @@ public struct GamePlayData {
     public bool isMultiplayer;
     public string turnOrder;
 }
+
+public struct UpdatePlayerPoints {
+
+    public string color;
+    public int points;
+}

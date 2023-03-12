@@ -100,6 +100,10 @@ public class Square : MonoBehaviour
                         pawnColor = pawn.pawnColor,
                         pawnId = pawn.pawnId
                     });
+                    _signalBus.Fire(new UpdatePlayerPoints{
+                        color = signalData.color,
+                        points = 20
+                    });
                 }
             }
         }
