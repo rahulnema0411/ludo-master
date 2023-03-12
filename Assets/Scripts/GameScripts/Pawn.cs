@@ -60,6 +60,16 @@ public class Pawn : MonoBehaviour {
         }
 
         FireTurnEndSignal(signal);
+        AddPawnReachedHomePoints();
+    }
+
+    private void AddPawnReachedHomePoints() {
+        if (currentPosition == 56) {
+            _signalBus.Fire(new UpdatePlayerPoints {
+                color = pawnColor,
+                points = 30
+            });
+        }
     }
 
     private void FireTurnEndSignal(MovePawnSignal signal) {
