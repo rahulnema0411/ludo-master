@@ -8,6 +8,7 @@ public class Dice : MonoBehaviour {
     [SerializeField] public SpriteRenderer dice, shadow;
     [SerializeField] public BoxCollider2D diceCollider;
     [SerializeField] public GameObject arrow;
+    [SerializeField] public TextMesh playerPoints;
 
     public string diceID;
 
@@ -107,6 +108,19 @@ public class Dice : MonoBehaviour {
             color.a = color.a + 0.02f;
             shadow.color = color;
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void UpdatePlayerPoints(int initial, int final) {
+        StartCoroutine(UpdateTextValue(initial, final));
+    }
+
+    private IEnumerator UpdateTextValue(int initial, int final) {
+        int value = initial;
+        while (value < final) {
+            yield return new WaitForSeconds(0.1f);
+            value++;
+            playerPoints.text = value.ToString();
         }
     }
 }

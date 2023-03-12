@@ -31,11 +31,16 @@ public class Player : MonoBehaviour {
     }
 
     public void InitializePlayer() {
-        points = 0;
+        SetInitialPlayerPoints();
         SetPawnValue();
         InitializePath();
         InitializeFinalPath();
         SubscribeSignals();
+    }
+
+    private void SetInitialPlayerPoints() {
+        points = 0;
+        dice.playerPoints.text = "0";
     }
 
     private void SetDiceResult() {
@@ -70,6 +75,7 @@ public class Player : MonoBehaviour {
 
     private void UpdatePoints(UpdatePlayerPoints data) {
         if(data.color.ToLower().Equals(color.ToLower())) {
+            dice.UpdatePlayerPoints(points, points+data.points);
             points += data.points;
         }
     }
