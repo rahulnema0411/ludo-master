@@ -17,10 +17,12 @@ public class Player : MonoBehaviour {
     [SerializeField] public Vector2Int startPosition, nextPosition, endPosition, finalPathStartPosition, homePosition;
 
     private int roll;
+    private int points;
 
     private LudoBoard _ludoBoard;
     private SignalBus _signalBus;
 
+    public int Points { get => points; set => points = value; }
 
     [Inject]
     public void Construct(LudoBoard ludoBoard, SignalBus signalBus) {

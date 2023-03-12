@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4406220288317230572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4406220288317230546}
+  - component: {fileID: 4406220288317230573}
+  m_Layer: 0
+  m_Name: ImageHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4406220288317230546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4406220288317230572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4859952, y: 0.049646284, z: 0.05010638}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4406220288317230573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4406220288317230572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5805fe48310404b4ba9ea3e1d9e34529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  square: {fileID: 21300000, guid: dac4032237a244143bccd0ee77312495, type: 3}
+  blackMaterial: {fileID: 2100000, guid: ab77a608b4dba2e4aa51be52d676bafb, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: bff7f3bc184ca9940ab75ddf47a7cc7c, type: 2}
+  redMaterial: {fileID: 2100000, guid: 6e20595bbde1c0148830374404d81141, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 5cdedab9eec2a654ab57d113651783fe, type: 2}
+  blueMaterial: {fileID: 2100000, guid: cff71965ad8f49946a44907891442b11, type: 2}
+  yellowMaterial: {fileID: 2100000, guid: e6290523a2142e7479e91d80b60d1685, type: 2}
+  pastelRedMaterial: {fileID: 2100000, guid: 25c7c7d26ac1c1c4e9f698168ba51461, type: 2}
+  pastelBlueMaterial: {fileID: 2100000, guid: 2f8065a83ccdb374587afe8cdffb3f60, type: 2}
+  pastelYellowMaterial: {fileID: 2100000, guid: 9066710cf38354e4fb0d193ef0930795, type: 2}
+  pastelGreenMaterial: {fileID: 2100000, guid: df9f9e6ae90e5a142b482832889691f6, type: 2}
+  cell: {fileID: 21300000, guid: e2f9846ff10f5a447a5b65287c27648f, type: 3}
+  cellWithoutBorder: {fileID: 21300000, guid: 8c5700552281a014da1a8218254237c6, type: 3}
+  redPlayerColor: {r: 0.9372549, g: 0.24313726, b: 0.3647059, a: 1}
+  bluePlayerColor: {r: 0.39215687, g: 0.6313726, b: 0.8784314, a: 1}
+  greenPlayerColor: {r: 0.40784314, g: 0.827451, b: 0.34901962, a: 1}
+  yellowPlayerColor: {r: 0.93333334, g: 0.84705883, b: 0.3764706, a: 1}

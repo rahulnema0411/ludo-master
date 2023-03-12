@@ -6,6 +6,9 @@ public class GameEngine : MonoBehaviour {
 
     public LudoBoard ludoBoard;
     public TextMeshProUGUI userColorText;
+    public ColorSelectionPanel colorSelectionPanel;
+    public GameOverMenu gameOverMenu;
+    
 
     private bool isMultiplayer, host;
 
@@ -29,6 +32,7 @@ public class GameEngine : MonoBehaviour {
                 userColorText.text = ludoBoard.userColor;
                 SetDiceResults();
                 ludoBoard.Play();
+                colorSelectionPanel.WaitAndDoCrossFade();
             } else {
                 _sendEventMultiplayer.RequestGameDataSignal();
             }
@@ -36,6 +40,7 @@ public class GameEngine : MonoBehaviour {
             userColorText.gameObject.SetActive(false);
             ludoBoard.ActivatePlayers();
             ludoBoard.Play();
+            colorSelectionPanel.WaitAndDoCrossFade();
         }
 
     }

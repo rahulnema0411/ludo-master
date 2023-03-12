@@ -11,6 +11,7 @@ public class LudoBoard : MonoBehaviour {
     [Header("Main Path Way")]
     [SerializeField] public Transform MainPath;
     [SerializeReference] public List<Square> MainPathway;
+    [SerializeReference] public Transform CrossFade;
 
     public Player[] players;
 

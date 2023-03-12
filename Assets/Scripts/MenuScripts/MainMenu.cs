@@ -46,8 +46,6 @@ public class MainMenu : MonoBehaviour {
     private async void LoadScene() {
         crossFade.DOMoveY(1024f, 0.5f);
         await UniTask.Delay(500);
-        PlayerPrefs.SetString("multiplayer", gamePlayData.isMultiplayer.ToString());
-        PlayerPrefs.SetString("turnOrder", gamePlayData.turnOrder);
         SceneManager.LoadScene("LudoScene");
     }
 

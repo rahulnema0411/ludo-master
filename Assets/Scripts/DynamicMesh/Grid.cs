@@ -34,17 +34,17 @@ public class CustomGrid<T> {
                 CellArray[i, j] = CreateGridCell(parentTransform, GetWorldPosition(i, j) + new Vector3(CellSizeX - gridSize, CellSizeY - gridSize) * 0.5f);
             }
         }
-        CreateGridBorder(parentTransform, new Vector3(-gridSize/2, 0), 0.01f, gridSize, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(gridSize/2, 0), 0.01f, gridSize, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(0, -gridSize/2), gridSize, 0.01f, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(0, gridSize/2), gridSize, 0.01f, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(-gridSize/10, 0), 0.01f, gridSize, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(gridSize/10, 0), 0.01f, gridSize, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(0, -gridSize/10), gridSize, 0.01f, Color.black);
-        CreateGridBorder(parentTransform, new Vector3(0, gridSize/10), gridSize, 0.01f, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(-gridSize/2, 0), 0.02f, gridSize, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(gridSize/2, 0), 0.02f, gridSize, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(0, -gridSize/2), gridSize, 0.02f, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(0, gridSize/2), gridSize, 0.02f, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(-gridSize/10, 0), 0.02f, gridSize, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(gridSize/10, 0), 0.02f, gridSize, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(0, -gridSize/10), gridSize, 0.02f, Color.black);
+        CreateGridBorder(parentTransform, new Vector3(0, gridSize/10), gridSize, 0.02f, Color.black);
 
         CreateCell("BoardBackground", parentTransform, Vector3.zero, new Vector2(gridSize + 0.2f, gridSize + 0.2f), -1, Color.white);
-        CreateCell("BoardBackgroundBorder", parentTransform, Vector3.zero, new Vector2(gridSize + 0.22f, gridSize + 0.22f), -2, Color.black);
+        CreateCell("BoardBackgroundBorder", parentTransform, Vector3.zero, new Vector2(gridSize + 0.24f, gridSize + 0.24f), -2, Color.black);
         CreateCell("BoardShadow", parentTransform, Vector3.zero - new Vector3(-0.1f, 0.1f), new Vector2(gridSize + 0.2f, gridSize + 0.2f), -3, Color.black, 0.3f);
     }
 

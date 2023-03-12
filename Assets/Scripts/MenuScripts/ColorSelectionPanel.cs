@@ -21,14 +21,12 @@ public class ColorSelectionPanel : MonoBehaviour {
         _ludoboard = ludoBoard;
     }
 
-    private void Awake() {
-        WaitAndDoCrossFade();
-    }
-
-    private async void WaitAndDoCrossFade() {
+    public async void WaitAndDoCrossFade() {
         crossFade.gameObject.SetActive(true);
         await UniTask.Delay(500);
-        crossFade.DOMoveY(-4000f, 0.5f);
+        crossFade.DOMoveY(-4000f, 0.5f).OnComplete(delegate() {
+            gameObject.SetActive(false);
+        });
     }
 
     private void OnEnable() {
