@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 public class MainMenu : MonoBehaviour {
 
     public BaseButton tapToPlayButton;
-    public GameSelectMenu gameMenu;
+    [SerializeReference] private GameObject gameMenu;
     public Transform crossFade;
 
     private GamePlayData gamePlayData;
