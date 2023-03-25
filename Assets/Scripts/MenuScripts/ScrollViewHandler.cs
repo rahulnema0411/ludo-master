@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-public class ScrollViewHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+public class ScrollViewHandler : MonoBehaviour, IPointerDownHandler {
 
     [SerializeField] ScrollRect scrollRect;
     
@@ -42,9 +41,6 @@ public class ScrollViewHandler : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
         if (scrollRect.content.anchoredPosition.x > _previousPosition.x)
         {
-            Debug.Log("Scrolling right");
-
-
             Transform currentElement = scrollViewChilderen[currentIndex+1];
 
             if(currentElement.localScale.x > 0.5f) {
@@ -112,10 +108,5 @@ public class ScrollViewHandler : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerDown(PointerEventData eventData)
     {
         scrollRect.horizontal = true;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
     }
 }

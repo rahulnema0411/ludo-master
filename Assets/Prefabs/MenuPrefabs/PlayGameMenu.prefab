@@ -1174,7 +1174,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2180442612225849585}
   m_OnClick:
     m_PersistentCalls:
@@ -1595,7 +1595,7 @@ GameObject:
   - component: {fileID: 5046242489518435034}
   - component: {fileID: 7906567827793315982}
   m_Layer: 5
-  m_Name: StartGame
+  m_Name: CreateLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4128,6 +4128,7 @@ GameObject:
   - component: {fileID: 6743495877496334365}
   - component: {fileID: 2445872115215896270}
   - component: {fileID: 1238970082999049346}
+  - component: {fileID: 6699308911226748165}
   m_Layer: 5
   m_Name: JoinLobby
   m_TagString: Untagged
@@ -4212,6 +4213,20 @@ MonoBehaviour:
   m_UseGraphicAlpha: 1
   iterations: 5
   shadowSpread: {x: 1, y: 1}
+--- !u!114 &6699308911226748165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5234901219224663740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240825e215a92964db3ed2c9dc50944f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joinLobbyInput: {fileID: 1300197281430813797}
+  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
 --- !u!1 &5497572922469398810
 GameObject:
   m_ObjectHideFlags: 0
@@ -4666,7 +4681,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 3816275193042641653}
   m_OnClick:
     m_PersistentCalls:
@@ -5511,6 +5526,7 @@ GameObject:
   - component: {fileID: 4024595521050523742}
   - component: {fileID: 7575106628080363535}
   - component: {fileID: 1166884047301270091}
+  - component: {fileID: 3433784592028251545}
   m_Layer: 5
   m_Name: CreateLobby
   m_TagString: Untagged
@@ -5595,6 +5611,25 @@ MonoBehaviour:
   m_UseGraphicAlpha: 1
   iterations: 5
   shadowSpread: {x: 1, y: 1}
+--- !u!114 &3433784592028251545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295124724929766355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a66ac77fc2c3c04da97091dddb15011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createLobbyButton: {fileID: 7906567827793315982}
+  button1P: {fileID: 3228676670550578421}
+  button2P: {fileID: 7504268060065028850}
+  button3P: {fileID: 8058614017978292146}
+  button4P: {fileID: 9030650336677671217}
+  slider: {fileID: 7499511167527175968}
+  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
 --- !u!1 &6314087950945289289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5720,9 +5755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 1199343012727910686}
   scrollViewChilderen: []
+  sizeDiff: 0.5
   currentIndex: 0
   localDiff: 0
   percentProgress: 0
+  percentProgressBetweenTwoConsecutiveElements: 0
   _previousPosition: {x: 0, y: 0}
 --- !u!1 &6382323235671399195
 GameObject:

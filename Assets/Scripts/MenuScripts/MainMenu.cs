@@ -44,9 +44,13 @@ public class MainMenu : MonoBehaviour {
     }
 
     private async void LoadScene() {
-        crossFade.DOMoveY(1024f, 0.5f);
+        DoCrossFade();
         await UniTask.Delay(500);
         SceneManager.LoadScene("LudoScene");
+    }
+
+    public void DoCrossFade() {
+        crossFade.DOMoveY(1024f, 0.5f);
     }
 
     private void UnSubscribeToSignals() {

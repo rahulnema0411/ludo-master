@@ -11,8 +11,8 @@ public class GameSelectMenu : MonoBehaviour {
     public TextMeshProUGUI playerSelectedText;
     public LudoData ludoData;
 
-    private static readonly float[] sliderValues = { 0.151f, 0.435f, 0.72f, 1f };
-    private static readonly string[] playerSelectedValues = { "Single Player Game", "Two Players Game", "Three Players Game", "Four Players Game" };
+    private static readonly float[] sliderValues = { 0.2f, 0.48f, 0.74f, 1f };
+    private static readonly string[] playerSelectedValues = { "Single Player\nGame", "Two Players\nGame", "Three Players\nGame", "Four Players\nGame" };
     private const float sliderDOMoveDuration = 0.05f;
 
     private SignalBus _signalBus;

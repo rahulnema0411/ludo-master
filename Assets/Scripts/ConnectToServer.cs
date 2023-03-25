@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Zenject;
 using Photon.Realtime;
+using Cysharp.Threading.Tasks;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks {
 
     private SignalBus _signalBus;
-    private Menu _menu;
+    private MainMenu _mainMenu;
 
     [Inject]
-    public void Construct(SignalBus signalBus, Menu menu) {
+    public void Construct(SignalBus signalBus, MainMenu mainMenu) {
         _signalBus = signalBus;
-        _menu = menu;
+        _mainMenu = mainMenu;
     }
 
     void Start() {
@@ -22,7 +21,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
 
     public override void OnConnectedToMaster() {
         Debug.Log("Connected to Server");
-        _menu.onlinePlayButton.gameObject.SetActive(true);
     }
 
     public void JoinLobby() {
@@ -35,6 +33,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
     }
 
     public void CreateRoom(string roomName, RoomOptions roomOptions) {
+        Debug.Log("Creating room: " + roomName);
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
@@ -55,6 +54,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
     }
 
     public override void OnJoinedRoom() {
+        DoCrossFadeAndLoadScene();
+    }
+
+    private async void DoCrossFadeAndLoadScene() {
+        _mainMenu.DoCrossFade();
+        await UniTask.Delay(500);
         PhotonNetwork.LoadLevel("LudoScene");
     }
 }
