@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public struct MovePawnSignal {
     public float toPositionX;
     public float toPositionY;
@@ -93,6 +95,7 @@ public struct LobbyJoinSignal {
 public struct GameData {
     public string turnOrder;
     public string userColor;
+    public List<string> unassignedColors;
 }
 
 public struct LoadSceneSignal {  }

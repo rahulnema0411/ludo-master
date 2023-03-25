@@ -68,6 +68,10 @@ public class LudoBoard : MonoBehaviour {
         return assignedColor;
     }
 
+    public void UpdateUnassignedColorList(string color) {
+        UnassignedColors.RemoveAt(UnassignedColors.IndexOf(color));
+    }
+
     private void GetPlayerPrefsData() {
         host = ludoData.isHost;
         isMultiplayer = ludoData.isMultiplayer;

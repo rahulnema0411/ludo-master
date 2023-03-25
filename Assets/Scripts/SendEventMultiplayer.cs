@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Photon.Pun;
@@ -58,11 +56,16 @@ public class SendEventMultiplayer : MonoBehaviour {
     public void RequestGameDataSignal() {
         RaiseEvent(EventCode.RequestGameDataSignal, new object[] { "" }, false);
     }
+
+    public void FireRoomJoinedSignal() {
+        RaiseEvent(EventCode.RoomJoinedSignal, new object[] { _ludoBoard.userColor }, false);
+    }
     
     public void SendGameDataSignal() {
         GameData gameData = new GameData();
-        gameData.turnOrder = PlayerPrefs.GetString("turnOrder", "red blue");
+        gameData.turnOrder = _ludoBoard.ludoData.turnOrder;
         gameData.userColor = _ludoBoard.AssignUserColor();
+        gameData.unassignedColors = _ludoBoard.UnassignedColors;
         RaiseEvent(EventCode.GameDataSignal, new object[] { JsonConvert.SerializeObject(gameData).ToString() }, false);
     }
 

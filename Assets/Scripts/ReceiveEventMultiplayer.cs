@@ -83,14 +83,21 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
             case EventCode.GameDataSignal:
                 if(!_ludoBoard.host) {
                     GameData gameData = JsonConvert.DeserializeObject<GameData>(s);
-                    PlayerPrefs.SetString("turnOrder", gameData.turnOrder);
+                    _ludoBoard.ludoData.turnOrder = gameData.turnOrder;
                     _ludoBoard.TurnOrder = gameData.turnOrder.Split(' ');
                     _ludoBoard.ActivatePlayers();
                     _ludoBoard.userColor = gameData.userColor;
+                    _ludoBoard.UnassignedColors = gameData.unassignedColors;
                     _gameEngine.userColorText.text = gameData.userColor;
                     _gameEngine.SetDiceResults();
                     _ludoBoard.Play();
+                    _sendEventMultiplayer.FireRoomJoinedSignal();
                 }
+                break;
+            case EventCode.RoomJoinedSignal:
+                string userJoined = s.ToLower();
+                _ludoBoard.UpdateUnassignedColorList(userJoined);
+                _gameEngine.gameSceneMenu.gameCodePanel.UpdateLobby();
                 break;
         }
     }

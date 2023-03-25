@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EventCode {
 
     //game signals
@@ -12,8 +8,8 @@ public class EventCode {
     public const byte TurnEndSignalEventCode = 5;
     public const byte KillPawnSignalEventCode = 6;
 
-    //color selection
-    public const byte ColorSelectionEventCode = 101;
+    //non in game signals
     public const byte RequestGameDataSignal = 102;
     public const byte GameDataSignal = 103;
+    public const byte RoomJoinedSignal = 104;
 }

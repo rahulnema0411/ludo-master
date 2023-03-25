@@ -5,10 +5,10 @@ using TMPro;
 public class GameEngine : MonoBehaviour {
 
     public LudoBoard ludoBoard;
-    public TextMeshProUGUI userColorText;
-    public ColorSelectionPanel colorSelectionPanel;
+    public GameSceneMenu gameSceneMenu;
     public GameOverMenu gameOverMenu;
     
+    public TextMeshProUGUI userColorText;
 
     private bool isMultiplayer, host;
 
@@ -32,15 +32,16 @@ public class GameEngine : MonoBehaviour {
                 userColorText.text = ludoBoard.userColor;
                 SetDiceResults();
                 ludoBoard.Play();
-                colorSelectionPanel.WaitAndDoCrossFade();
+                gameSceneMenu.WaitAndDoCrossFadeAndDontDisableGameObject();
             } else {
                 _sendEventMultiplayer.RequestGameDataSignal();
             }
+            gameSceneMenu.gameCodePanel.ShowRoomCode();
         } else {
             userColorText.gameObject.SetActive(false);
             ludoBoard.ActivatePlayers();
             ludoBoard.Play();
-            colorSelectionPanel.WaitAndDoCrossFade();
+            gameSceneMenu.WaitAndDoCrossFade();
         }
 
     }
@@ -56,7 +57,7 @@ public class GameEngine : MonoBehaviour {
     }
 
     private void GetPlayerPrefsData() {
-        host = PlayerPrefs.GetString("host", "no") == "yes" ? true : false;
-        isMultiplayer = PlayerPrefs.GetString("multiplayer", "false") == "true" ? true : false;
+        host = ludoBoard.ludoData.isHost;
+        isMultiplayer = ludoBoard.ludoData.isMultiplayer;
     }
 }
