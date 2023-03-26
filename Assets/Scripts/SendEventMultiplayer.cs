@@ -69,8 +69,8 @@ public class SendEventMultiplayer : MonoBehaviour {
         RaiseEvent(EventCode.GameDataSignal, new object[] { JsonConvert.SerializeObject(gameData).ToString() }, false);
     }
 
-    private static void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {
-        if(!thrownByRESystem) {
+    private void RaiseEvent(byte EventCode, object[] content, bool thrownByRESystem) {
+        if(!thrownByRESystem && _ludoBoard.isMultiplayer) {
             PhotonNetwork.RaiseEvent(EventCode, content, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
         }
     }

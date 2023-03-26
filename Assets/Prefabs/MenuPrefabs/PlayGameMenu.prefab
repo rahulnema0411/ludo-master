@@ -408,7 +408,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1327, y: 0}
+  m_SizeDelta: {x: 1805, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4800915436985720193
 MonoBehaviour:
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 58
-    m_Right: 0
-    m_Top: 0
+    m_Left: 80
+    m_Right: 80
+    m_Top: 100
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
@@ -2186,7 +2186,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7299475049024247826}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.5103321
+  m_Size: 0.35810813
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2557,7 +2557,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.48
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3021,7 +3021,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5103321, y: 1}
+  m_AnchorMax: {x: 0.35810813, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4155,7 +4155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2268, y: -498.26694}
+  m_AnchoredPosition: {x: 2290, y: -737.15784}
   m_SizeDelta: {x: 884, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6743495877496334365
@@ -4226,7 +4226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joinLobbyInput: {fileID: 1300197281430813797}
-  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
+  data: {fileID: 11400000, guid: a92436a86c1492e488f829c07c96c47f, type: 2}
 --- !u!1 &5497572922469398810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5553,7 +5553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1384, y: -498.26694}
+  m_AnchoredPosition: {x: 1406, y: -737.15784}
   m_SizeDelta: {x: 884, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4024595521050523742
@@ -5629,7 +5629,7 @@ MonoBehaviour:
   button3P: {fileID: 8058614017978292146}
   button4P: {fileID: 9030650336677671217}
   slider: {fileID: 7499511167527175968}
-  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
+  data: {fileID: 11400000, guid: ef501da1985852e42ad33ed26af89308, type: 2}
 --- !u!1 &6314087950945289289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,7 +5740,19 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3621500184007720530}
+        m_TargetAssemblyTypeName: ScrollViewHandler, Assembly-CSharp
+        m_MethodName: HandleScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3621500184007720530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6060,7 +6072,7 @@ RectTransform:
   m_GameObject: {fileID: 6552686585689636023}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3603304197615967598}
@@ -6070,7 +6082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 500, y: -498.26694}
+  m_AnchoredPosition: {x: 522, y: -737.15784}
   m_SizeDelta: {x: 884, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6641556877935515102
@@ -6147,7 +6159,7 @@ MonoBehaviour:
   button4P: {fileID: 2125236377504335296}
   startGameButton: {fileID: 4056017459237882911}
   playerSelectedText: {fileID: 2838011592657259610}
-  ludoData: {fileID: 11400000, guid: ff8077adb7cac1f49a273d6ae769db9a, type: 2}
+  data: {fileID: 11400000, guid: 519142c6c42b9d64d98bf3e591866896, type: 2}
 --- !u!1 &6558782662258430976
 GameObject:
   m_ObjectHideFlags: 0
@@ -6980,7 +6992,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.48, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7477,8 +7489,8 @@ RectTransform:
   m_Father: {fileID: 6719605225762405699}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.48, y: 0}
+  m_AnchorMax: {x: 0.48, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7554,7 +7566,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9999999}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

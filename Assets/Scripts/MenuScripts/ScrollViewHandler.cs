@@ -11,7 +11,6 @@ public class ScrollViewHandler : MonoBehaviour, IPointerDownHandler {
     [SerializeField] private List<Transform> scrollViewChilderen;
 
     public float sizeDiff = 0.5f;
-    private float scrollRectPosition = 0f;
 
     public int currentIndex = 0;
     public float localDiff = 0f;

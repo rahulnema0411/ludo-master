@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     public BaseButton tapToPlayButton;
     [SerializeReference] private GameObject gameMenu;
     public Transform crossFade;
+    public LudoData ludoData;
 
     private GamePlayData gamePlayData;
 
@@ -51,6 +52,18 @@ public class MainMenu : MonoBehaviour {
 
     public void DoCrossFade() {
         crossFade.DOMoveY(1024f, 0.5f);
+    }
+
+    public void SetLudoData(LudoData data) {
+        if(data != null) {
+            ludoData.isHost = data.isHost;
+            ludoData.isMultiplayer = data.isMultiplayer;
+            ludoData.turnOrder = data.turnOrder;
+            ludoData.lobbyCode = data.lobbyCode;
+            
+        } else {
+            Debug.LogError("data is null");
+        }
     }
 
     private void UnSubscribeToSignals() {

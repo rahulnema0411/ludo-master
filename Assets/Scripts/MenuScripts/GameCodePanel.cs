@@ -20,7 +20,6 @@ public class GameCodePanel : MonoBehaviour
     private string[] TurnOrder { get; set; }
 
     public void ShowRoomCode() {
-        
         SetUserColor();
 
         roomCodePanel.SetActive(_ludoboard.ludoData.isHost);
@@ -36,6 +35,7 @@ public class GameCodePanel : MonoBehaviour
     }
 
     public void UpdateLobby() {
+
         if(_ludoboard.UnassignedColors != null && _ludoboard.UnassignedColors.Count > 0) {
 
             TurnOrder = _ludoboard.ludoData.turnOrder.Split(' ');
@@ -51,7 +51,6 @@ public class GameCodePanel : MonoBehaviour
                 playerImage.SetAlpha(0.5f);
             }
             
-
             gameObject.SetActive(true);
 
         } else {

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d681f9b735e974642992e2d61d82299b, type: 3}
-  m_Name: LudoData
+  m_Name: OfflineLudoData
   m_EditorClassIdentifier: 
-  turnOrder: red green
-  isMultiplayer: 1
-  isHost: 1
+  turnOrder: 
+  isMultiplayer: 0
+  isHost: 0
   lobbyCode: 

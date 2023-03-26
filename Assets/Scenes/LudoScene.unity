@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ludoBoard: {fileID: 1802973526}
-  userColorText: {fileID: 888236071}
   gameSceneMenu: {fileID: 2117349437}
   gameOverMenu: {fileID: 1778376612}
+  userColorText: {fileID: 888236071}
 --- !u!1 &340439233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &2117349438 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3553346415969615573, guid: d11c7035ca5e24741b67b0c4b1ef5fa7, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7762665136077749359, guid: d11c7035ca5e24741b67b0c4b1ef5fa7, type: 3}
   m_PrefabInstance: {fileID: 2117349435}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
