@@ -69,7 +69,9 @@ public class LudoBoard : MonoBehaviour {
     }
 
     public void UpdateUnassignedColorList(string color) {
-        UnassignedColors.RemoveAt(UnassignedColors.IndexOf(color));
+        if(UnassignedColors.IndexOf(color) >= 0 && UnassignedColors.IndexOf(color) < UnassignedColors.Count) {
+            UnassignedColors.RemoveAt(UnassignedColors.IndexOf(color));
+        }
     }
 
     private void GetPlayerPrefsData() {

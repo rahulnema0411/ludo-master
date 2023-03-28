@@ -282,6 +282,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1941365894}
     m_Modifications:
+    - target: {fileID: 3427595389789798447, guid: 4f7c96eba3cd0d8408cb0cf84043ed64, type: 3}
+      propertyPath: crossFadeR
+      value: 
+      objectReference: {fileID: 1405688541}
     - target: {fileID: 5356722773623744291, guid: 4f7c96eba3cd0d8408cb0cf84043ed64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -531,6 +535,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1405688541 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3763452395162716591, guid: 4f7c96eba3cd0d8408cb0cf84043ed64, type: 3}
+  m_PrefabInstance: {fileID: 225590469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1941365890
 GameObject:
   m_ObjectHideFlags: 0

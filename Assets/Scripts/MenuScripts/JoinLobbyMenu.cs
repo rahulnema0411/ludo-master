@@ -4,8 +4,8 @@ using Zenject;
 
 public class JoinLobbyMenu : MonoBehaviour
 {
-    public TMP_InputField joinLobbyInput;
-    private BaseButton joinLobbyButton;
+    [SerializeField] TMP_InputField joinLobbyInput;
+    [SerializeField] BaseButton joinLobbyButton;
 
     public LudoData data;
 
@@ -20,13 +20,14 @@ public class JoinLobbyMenu : MonoBehaviour
 
     void Start() {
         SetDefaultLudoData();
+        SetButtons();
     }
 
     void SetButtons() {
         joinLobbyButton.onClick.RemoveAllListeners();
         joinLobbyButton.onClick.AddListener(delegate() { 
             if(!string.IsNullOrWhiteSpace(joinLobbyInput.text)) {
-                Debug.LogError("Joining room: " + joinLobbyInput.text);
+                Debug.Log("Joining room: " + joinLobbyInput.text);
                 _mainMenu.SetLudoData(data);
                 _server.JoinRoom(joinLobbyInput.text);
             } else {

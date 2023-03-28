@@ -32,10 +32,10 @@ public class GameEngine : MonoBehaviour {
                 userColorText.text = ludoBoard.userColor;
                 SetDiceResults();
                 ludoBoard.Play();
-                gameSceneMenu.WaitAndDoCrossFadeAndDontDisableGameObject();
             } else {
                 _sendEventMultiplayer.RequestGameDataSignal();
             }
+            gameSceneMenu.WaitAndDoCrossFadeAndDontDisableGameObject();
             gameSceneMenu.gameCodePanel.ShowRoomCode();
         } else {
             userColorText.gameObject.SetActive(false);

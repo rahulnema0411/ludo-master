@@ -45,13 +45,13 @@ public class MainMenu : MonoBehaviour {
     }
 
     private async void LoadScene() {
-        DoCrossFade();
+        crossFade.DOLocalMoveY(0f, 0.5f);
         await UniTask.Delay(500);
         SceneManager.LoadScene("LudoScene");
     }
 
     public void DoCrossFade() {
-        crossFade.DOMoveY(1024f, 0.5f);
+        crossFade.DOLocalMoveY(1024f, 0.5f);
     }
 
     public void SetLudoData(LudoData data) {

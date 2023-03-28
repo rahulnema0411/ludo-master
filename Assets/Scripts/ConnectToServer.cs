@@ -43,14 +43,14 @@ public class ConnectToServer : MonoBehaviourPunCallbacks {
 
     public override void OnJoinRoomFailed(short returnCode, string message) {
         base.OnJoinRoomFailed(returnCode, message);
-        Debug.LogError("Join room failed with return Code: " + returnCode);
-        Debug.LogError("Join room failed with message: " + message);
+        Debug.Log("Join room failed with return Code: " + returnCode);
+        Debug.Log("Join room failed with message: " + message);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) {
         base.OnCreateRoomFailed(returnCode, message);
-        Debug.LogError("Create room failed with return Code: " + returnCode);
-        Debug.LogError("Create room failed with message: " + message);
+        Debug.Log("Create room failed with return Code: " + returnCode);
+        Debug.Log("Create room failed with message: " + message);
     }
 
     public override void OnJoinedRoom() {

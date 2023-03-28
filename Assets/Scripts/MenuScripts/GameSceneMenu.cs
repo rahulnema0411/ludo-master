@@ -10,7 +10,7 @@ public class GameSceneMenu : MonoBehaviour {
     public async void WaitAndDoCrossFade() {
         crossFade.gameObject.SetActive(true);
         await UniTask.Delay(500);
-        crossFade.DOMoveY(-4000f, 0.5f).OnComplete(delegate() {
+        crossFade.DOLocalMoveY(-4000f, 0.5f).OnComplete(delegate() {
             gameObject.SetActive(false);
         });
     }
@@ -18,6 +18,6 @@ public class GameSceneMenu : MonoBehaviour {
     public async void WaitAndDoCrossFadeAndDontDisableGameObject() {
         crossFade.gameObject.SetActive(true);
         await UniTask.Delay(500);
-        crossFade.DOMoveY(-4000f, 0.5f);
+        crossFade.DOLocalMoveY(-4000f, 0.5f);
     }
 }

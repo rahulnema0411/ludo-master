@@ -96,7 +96,9 @@ public class ReceiveEventMultiplayer : MonoBehaviour, IOnEventCallback {
                 break;
             case EventCode.RoomJoinedSignal:
                 string userJoined = s.ToLower();
-                _ludoBoard.UpdateUnassignedColorList(userJoined);
+                if(!_ludoBoard.host) {
+                    _ludoBoard.UpdateUnassignedColorList(userJoined);
+                }
                 _gameEngine.gameSceneMenu.gameCodePanel.UpdateLobby();
                 break;
         }
